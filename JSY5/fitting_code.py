@@ -42,7 +42,7 @@ pal_v = np.linspace(-Mv, Mv, Nv)
 per_v = np.linspace(-Mv, Mv, Nv)
 delv=pal_v[1]-pal_v[0]
 print(delv)
-Nr=50      #radial step number
+Nr=30      #radial step number
 r_s=696340000.
 z=np.linspace(i_solar_r, f_solar_r, Nr)
 delz=z[1]-z[0]
@@ -258,11 +258,11 @@ for r in range(Nr):
     solu2_s=np.zeros(shape = (Nv))
     
     for i in range(Nv):
-        solu2[i]=np.log10(fitting[15*Nv+i]/fitting_max)
+        solu2[i]=np.log10(fitting[30*Nv+i]/fitting_max)
     for i in range(Nv):
-        solu2_c[i]=np.log10(fitting_c[15*Nv+i]/fitting_max)
+        solu2_c[i]=np.log10(fitting_c[30*Nv+i]/fitting_max)
     for i in range(Nv):
-        solu2_s[i]=np.log10(fitting_s[15*Nv+i]/fitting_max)
+        solu2_s[i]=np.log10(fitting_s[30*Nv+i]/fitting_max)
     fig = plt.figure()
     fig.set_dpi(500)
     plt.plot(pal_v,solu2,color='k',label=r'$r/r_s=$' "%.2f" % z[r]);
