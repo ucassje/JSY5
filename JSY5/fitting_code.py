@@ -145,7 +145,7 @@ for r in range(Nr):
     print(r)
     if r==0:
             p = lmfit.Parameters()
-            p.add_many(('nc', 1,True,0.8,1),('ns', 0.0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 1*10**5,True,1*10**5,20*10**5), ('Ts_per', 1*10**5,True,1*10**5,20*10**5), ('Uc',0,True,-0.7,0),('Us',1,True,0,7),('kappac',2,True,2,50),('kappas',2,True,2,50))
+            p.add_many(('nc', 1,True,0.8,1),('ns', 0.0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 1*10**5,True,1*10**5,20*10**5), ('Ts_per', 1*10**5,True,1*10**5,20*10**5), ('Uc',0,True,-0.7,0),('Us',2,True,0,7),('kappac',2,True,2,50),('kappas',2,True,2,50))
     else:                          #,('Us',0,True,0,1.5) , ('Uc',0,True,-0.4,0) 
             p = lmfit.Parameters()
             p.add_many(('nc', nc[r-1],True,0.8,1),('ns', ns[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,20*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,20*10**5), ('Uc',Uc[r-1],True,-0.7,0),('Us',Us[r-1],True,0,7),('kappac',kappac[r-1],True,4,50),('kappas',kappas[r-1],True,2,50))
@@ -162,13 +162,13 @@ for r in range(Nr):
         fitting=np.zeros(shape = (Nv**2, 1))
         for j in range(Nv):
             for i in range(Nv):
-                fitting[j*Nv+i]=(v['nc'])*Density[r]*(v_th_function(v['Tc_pal'])*v_th_function(v['Tc_per'])**2)**(-1)*(2/(np.pi*(2*v['kappac']-3)))**1.5*(gamma(v['kappac']+1)/gamma(v['kappac']-0.5))*(1.+(2/(2*v['kappac']-3))*(((per_v[j])/v_th_function(v['Tc_per']))**2)+(2/(2*v['kappac']-3))*(((pal_v[i]-v['Uc'])/v_th_function(v['Tc_pal']))**2))**(-v['kappac']-1.)+(v['ns'])*Density[r]*(v_th_function(v['Ts_pal'])*v_th_function(v['Ts_per'])**2)**(-1)*(2/(np.pi*(2*v['kappas']-3)))**1.5*(gamma(v['kappas']+1)/gamma(v['kappas']-0.5))*(1.+(2/(2*v['kappas']-3))*(((per_v[j])/v_th_function(v['Ts_per']))**2)+(2/(2*v['kappas']-3))*(((pal_v[i]-v['Us'])/v_th_function(v['Ts_pal']))**2))**(-v['kappas']-1.)
+                fitting[j*Nv+i]=(v['nc'])*(r_s**3)*Density[r]*(v_th_function(v['Tc_pal'])*v_th_function(v['Tc_per'])**2)**(-1)*(2/(np.pi*(2*v['kappac']-3)))**1.5*(gamma(v['kappac']+1)/gamma(v['kappac']-0.5))*(1.+(2/(2*v['kappac']-3))*(((per_v[j])/v_th_function(v['Tc_per']))**2)+(2/(2*v['kappac']-3))*(((pal_v[i]-v['Uc'])/v_th_function(v['Tc_pal']))**2))**(-v['kappac']-1.)+(v['ns'])*(r_s**3)*Density[r]*(v_th_function(v['Ts_pal'])*v_th_function(v['Ts_per'])**2)**(-1)*(2/(np.pi*(2*v['kappas']-3)))**1.5*(gamma(v['kappas']+1)/gamma(v['kappas']-0.5))*(1.+(2/(2*v['kappas']-3))*(((per_v[j])/v_th_function(v['Ts_per']))**2)+(2/(2*v['kappas']-3))*(((pal_v[i]-v['Us'])/v_th_function(v['Ts_pal']))**2))**(-v['kappas']-1.)
         fit_maxi=np.max(fitting)
         
         DataChosen = np.where((f_11/maxi)> 10**(-5));
         return np.log10(fitting[DataChosen])-np.log10(f_11[DataChosen]) #np.log10(fitting/fit_maxi)-np.log10(f_11/maxi) 
 
-    mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 1000}, nan_policy='omit')
+    mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 2000}, nan_policy='omit')
     #lmfit.printfuncs.report_fit(mi.params, min_correl=0.5)
     print(fit_report(mi))
     zx =  mi.params
