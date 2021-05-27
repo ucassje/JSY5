@@ -42,20 +42,21 @@ epsilon=8.8542*10**(-12)
 pal_v = np.linspace(-Mv, Mv, Nv)
 per_v = np.linspace(-Mv, Mv, Nv)
 delv=pal_v[1]-pal_v[0]
-print(delv)
+
 Nr=30      #radial step number
 r_s=696340000.
 z=np.linspace(i_solar_r, f_solar_r, Nr)
 delz=z[1]-z[0]
-print(delz)
+
 Mt=3600*v_Ae_0/r_s
 Nt=3600
 t=np.linspace(0, Mt, Nt)
 delt=(t[1]-t[0])            #time step
-print(delt)
+
 Fv=delt/delv
 Fvv=delt/(delv)**2
 Fz=delt/delz
+print(Fv)
 print(Fz)
 U_f=800000./v_Ae_0
 T_e=10*10**5; #5*(10**(5))
