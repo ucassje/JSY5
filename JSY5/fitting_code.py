@@ -166,7 +166,7 @@ for r in range(Nr):
         fit_maxi=np.max(fitting)
         
         DataChosen = np.where((f_11/maxi)> 10**(-6));
-        return np.log10(fitting[DataChosen])-np.log10(f_11[DataChosen]) #np.log10(fitting/fit_maxi)-np.log10(f_11/maxi) 
+        return fitting[DataChosen]-f_11[DataChosen]#np.log10(fitting[DataChosen])-np.log10(f_11[DataChosen]) #np.log10(fitting/fit_maxi)-np.log10(f_11/maxi) 
 
     mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 1000}, nan_policy='omit')
     #lmfit.printfuncs.report_fit(mi.params, min_correl=0.5)
