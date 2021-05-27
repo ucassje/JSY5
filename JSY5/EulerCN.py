@@ -18,7 +18,7 @@ from lmfit import Parameters, fit_report, minimize
 #from lmfit import Model
 import lmfit
 
-Nv=31 #velocity step number
+Nv=71 #velocity step number
 i_solar_r=5 #10
 f_solar_r=20 #30
 path_home="/Users/user/Desktop/JSY5/"
@@ -632,22 +632,7 @@ for k in range(timestep):
         f_1[:,:]=f_temp4[:,:]
         f_1[:,0]=f_initial[:,0]
 
-        f_temp5=np.zeros(shape = (Nv**2, Nr))
-        f_temp5[:,:]=f_1[:,:]
-        for r in range(Nr):
-                if r>0:
-                        for j in range(Nv):
-                                for i in range(Nv):
-                                        if f_temp5[j*Nv+i,r]<0:
-                                                f_temp5[j*Nv+i,r]=10**(50)
-        mini=np.amin(f_temp5)
 
-        for r in range(Nr):
-                if r>0:
-                        for j in range(Nv):
-                                for i in range(Nv):
-                                        if f_1[j*Nv+i,r]<0:
-                                                f_1[j*Nv+i,r]=mini
 
         f_temp1=np.zeros(shape = (Nv**2, Nr))
         f_temp1[:,:]=f_1[:,:]
@@ -726,109 +711,115 @@ for k in range(timestep):
         #f_1[:,:]=f_temp1[:,:]
         #f_1[:,0]=f_initial[:,0]
 
-        f_temp5=np.zeros(shape = (Nv**2, Nr))
-        f_temp5[:,:]=f_1[:,:]
-        for r in range(Nr):
-                if r>0:
-                        for j in range(Nv):
-                                for i in range(Nv):
-                                        if f_temp5[j*Nv+i,r]<0:
-                                                f_temp5[j*Nv+i,r]=10**(50)
-        mini=np.amin(f_temp5)
-
+        maxx=np.amax(f_1)
+        
         for r in range(Nr):
                 if r>0:
                         for j in range(Nv):
                                 for i in range(Nv):
                                         if f_1[j*Nv+i,r]<0:
-                                                f_1[j*Nv+i,r]=mini
+                                                f_1[j*Nv+i,r]=maxx*10**(-30)
+        #mini=np.amin(f_temp5)
+
+        #for r in range(Nr):
+        #        if r>0:
+        #                for j in range(Nv):
+        #                        for i in range(Nv):
+        #                                if f_1[j*Nv+i,r]<0:
+        #                                        f_1[j*Nv+i,r]=mini
             
 
             
             
-        if l==10:
-                l=1
-                print("H")
+        #if l==10:
+        #        l=1
+        #        print("H")
 
         
                 
 
-                for j in range(Nv):
-                    for i in range(Nv):
-                            if f_1[(j)*Nv+i,15]/np.amax(f_1)>1:
-                                    solu1[j,i]=0
-                            elif f_1[(j)*Nv+i,15]/np.amax(f_1)>10**(-10):
-                                    solu1[j,i]=np.log10(f_1[(j)*Nv+i,15]/np.amax(f_1))
-                            else:
-                                    solu1[j,i]=-10
-                fig = plt.figure()
-                fig.set_dpi(500)
-                plt.contourf(X2, Y2,solu1, cont_lev,cmap='Blues');
-                ax = plt.gca()
-                ax.spines['left'].set_position('center')
-                ax.spines['left'].set_smart_bounds(True)
-                ax.spines['bottom'].set_position('zero')
-                ax.spines['bottom'].set_smart_bounds(True)
-                ax.spines['right'].set_color('none')
-                ax.spines['top'].set_color('none')
-                ax.xaxis.set_ticks_position('bottom')
-                plt.axis('equal')
-                ax.xaxis.set_ticks_position('bottom')
-                ax.yaxis.set_ticks_position('left')
-                plt.rc('font', size=8)
-                plt.tick_params(labelsize=8)
-                plt.text(pal_v[Nv-6],0.1,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
-                plt.text(0.,pal_v[Nv-2],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
-                plt.text(pal_v[Nv-9],pal_v[Nv-3], r'$r/r_s=$' "%.2f" % z[15], fontsize=12)
+        #        for j in range(Nv):
+        #            for i in range(Nv):
+        #                    if f_1[(j)*Nv+i,15]/np.amax(f_1)>1:
+        #                            solu1[j,i]=0
+        #                    elif f_1[(j)*Nv+i,15]/np.amax(f_1)>10**(-10):
+        #                            solu1[j,i]=np.log10(f_1[(j)*Nv+i,15]/np.amax(f_1))
+        #                    else:
+        #                            solu1[j,i]=-10
+        #        fig = plt.figure()
+        #        fig.set_dpi(500)
+        #        plt.contourf(X2, Y2,solu1, cont_lev,cmap='Blues');
+        #        ax = plt.gca()
+        #        ax.spines['left'].set_position('center')
+        #        ax.spines['left'].set_smart_bounds(True)
+        #        ax.spines['bottom'].set_position('zero')
+        #        ax.spines['bottom'].set_smart_bounds(True)
+        #        ax.spines['right'].set_color('none')
+        #        ax.spines['top'].set_color('none')
+        #        ax.xaxis.set_ticks_position('bottom')
+        #        plt.axis('equal')
+        #        ax.xaxis.set_ticks_position('bottom')
+        #        ax.yaxis.set_ticks_position('left')
+        #        plt.rc('font', size=8)
+        #        plt.tick_params(labelsize=8)
+        #        plt.text(pal_v[Nv-6],0.1,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
+        #        plt.text(0.,pal_v[Nv-2],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
+        #        plt.text(pal_v[Nv-9],pal_v[Nv-3], r'$r/r_s=$' "%.2f" % z[15], fontsize=12)
                 #plt.text(pal_v[Nv-10],pal_v[Nv-2], r'$T(\mathcal{v}_{Ae0}/r_s):$' "%.2f" % nu, fontsize=8)
                 #plt.text(pal_v[Nv-10],pal_v[Nv-4], r'$Nv=$' "%.2f" % Nv, fontsize=8)
                 #plt.text(pal_v[Nv-10],pal_v[Nv-5], r'$Nr=$' "%.2f" % Nr, fontsize=8)
-                plt.colorbar(label=r'$Log(F/F_{MAX})$')
-                plt.savefig(f'{path_current}r=15/{k}.png')
-                plt.clf()
-                plt.close()
+        #        plt.colorbar(label=r'$Log(F/F_{MAX})$')
+        #        plt.savefig(f'{path_current}r=15/{k}.png')
+        #        plt.clf()
+        #        plt.close()
 
 
-                for j in range(Nv):
-                    for i in range(Nv):
-                            if f_1[(j)*Nv+i,29]/np.amax(f_1)>1:
-                                    solu1[j,i]=0
-                            elif f_1[(j)*Nv+i,29]/np.amax(f_1)>10**(-10):
-                                    solu1[j,i]=np.log10(f_1[(j)*Nv+i,29]/np.amax(f_1))
-                            else:
-                                    solu1[j,i]=-10
-                fig = plt.figure()
-                fig.set_dpi(500)
-                plt.contourf(X2, Y2,solu1, cont_lev,cmap='Blues');
-                ax = plt.gca()
-                ax.spines['left'].set_position('center')
-                ax.spines['left'].set_smart_bounds(True)
-                ax.spines['bottom'].set_position('zero')
-                ax.spines['bottom'].set_smart_bounds(True)
-                ax.spines['right'].set_color('none')
-                ax.spines['top'].set_color('none')
-                ax.xaxis.set_ticks_position('bottom')
-                plt.axis('equal')
-                ax.xaxis.set_ticks_position('bottom')
-                ax.yaxis.set_ticks_position('left')
-                plt.rc('font', size=8)
-                plt.tick_params(labelsize=8)
-                plt.text(pal_v[Nv-6],0.1,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
-                plt.text(0.,pal_v[Nv-2],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
-                plt.text(pal_v[Nv-9],pal_v[Nv-3], r'$r/r_s=$' "%.2f" % z[29], fontsize=12)
+        #        for j in range(Nv):
+        #            for i in range(Nv):
+        #                    if f_1[(j)*Nv+i,29]/np.amax(f_1)>1:
+        #                            solu1[j,i]=0
+        #                    elif f_1[(j)*Nv+i,29]/np.amax(f_1)>10**(-10):
+        #                            solu1[j,i]=np.log10(f_1[(j)*Nv+i,29]/np.amax(f_1))
+        #                    else:
+        #                            solu1[j,i]=-10
+        #        fig = plt.figure()
+        #        fig.set_dpi(500)
+        #        plt.contourf(X2, Y2,solu1, cont_lev,cmap='Blues');
+        #        ax = plt.gca()
+        #        ax.spines['left'].set_position('center')
+        #        ax.spines['left'].set_smart_bounds(True)
+        #        ax.spines['bottom'].set_position('zero')
+        #        ax.spines['bottom'].set_smart_bounds(True)
+        #        ax.spines['right'].set_color('none')
+        #        ax.spines['top'].set_color('none')
+        #        ax.xaxis.set_ticks_position('bottom')
+        #        plt.axis('equal')
+        #        ax.xaxis.set_ticks_position('bottom')
+        #        ax.yaxis.set_ticks_position('left')
+        #        plt.rc('font', size=8)
+        #        plt.tick_params(labelsize=8)
+        #        plt.text(pal_v[Nv-6],0.1,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
+        #        plt.text(0.,pal_v[Nv-2],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
+        #        plt.text(pal_v[Nv-9],pal_v[Nv-3], r'$r/r_s=$' "%.2f" % z[29], fontsize=12)
                 #plt.text(pal_v[Nv-10],pal_v[Nv-2], r'$T(\mathcal{v}_{Ae0}/r_s):$' "%.2f" % nu, fontsize=8)
                 #plt.text(pal_v[Nv-10],pal_v[Nv-4], r'$Nv=$' "%.2f" % Nv, fontsize=8)
                 #plt.text(pal_v[Nv-10],pal_v[Nv-5], r'$Nr=$' "%.2f" % Nr, fontsize=8)
-                plt.colorbar(label=r'$Log(F/F_{MAX})$')
-                plt.savefig(f'{path_current}r=34/{k}.png')
-                plt.clf()
-                plt.close()
+        #        plt.colorbar(label=r'$Log(F/F_{MAX})$')
+        #        plt.savefig(f'{path_current}r=34/{k}.png')
+        #        plt.clf()
+        #        plt.close()
 
 
-        else:
-                l=l+1 
+        #else:
+        #        l=l+1 
                    
 
+        if k==600:
+                np.save('data_600.npy', f_1)
+        
+        if k==800:
+                np.save('data_800.npy', f_1)
+        
         f_next[:,:]=f_1[:,:]
         norm=0
         for R in range(Nr):
