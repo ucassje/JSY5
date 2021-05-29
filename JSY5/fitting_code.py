@@ -191,17 +191,17 @@ for r in range(Nr):
     fitting=np.zeros(shape = (Nv**2, 1))
     for j in range(Nv):
         for i in range(Nv):
-            fitting[j*Nv+i]=nc[r]*(U_solar(z[0])/U_solar(z[r]))*(r_s**3)*(n(z[r])*10**6)*(v_th_function(Tc_pal[r])*v_th_function(Tc_per[r])**2)**(-1)*(2/(np.pi*(2*kappac[r]-3)))**1.5*(gamma(kappac[r]+1)/gamma(kappac[r]-0.5))*(1.+(2/(2*kappac[r]-3))*(((per_v[j])/v_th_function(Tc_per[r]))**2)+(2/(2*kappac[r]-3))*(((pal_v[i]-Uc[r])/v_th_function(Tc_pal[r]))**2))**(-kappac[r]-1.)+(ns[r])*(U_solar(z[0])/U_solar(z[r]))*(r_s**3)*(n(z[r])*10**6)*(v_th_function(Ts_pal[r])*v_th_function(Ts_per[r])**2)**(-1)*(2/(np.pi*(2*kappas[r]-3)))**1.5*(gamma(kappas[r]+1)/gamma(kappas[r]-0.5))*(1.+(2/(2*kappas[r]-3))*(((per_v[j])/v_th_function(Ts_per[r]))**2)+(2/(2*kappas[r]-3))*(((pal_v[i]-Us[r])/v_th_function(Ts_pal[r]))**2))**(-kappas[r]-1.)
+            fitting[j*Nv+i]=nc[r]*(r_s**3)*Density[r]*(v_th_function(Tc_pal[r])*v_th_function(Tc_per[r])**2)**(-1)*(2/(np.pi*(2*kappac[r]-3)))**1.5*(gamma(kappac[r]+1)/gamma(kappac[r]-0.5))*(1.+(2/(2*kappac[r]-3))*(((per_v[j])/v_th_function(Tc_per[r]))**2)+(2/(2*kappac[r]-3))*(((pal_v[i]-Uc[r])/v_th_function(Tc_pal[r]))**2))**(-kappac[r]-1.)+(ns[r])*(r_s**3)*Density[r]*(v_th_function(Ts_pal[r])*v_th_function(Ts_per[r])**2)**(-1)*(2/(np.pi*(2*kappas[r]-3)))**1.5*(gamma(kappas[r]+1)/gamma(kappas[r]-0.5))*(1.+(2/(2*kappas[r]-3))*(((per_v[j])/v_th_function(Ts_per[r]))**2)+(2/(2*kappas[r]-3))*(((pal_v[i]-Us[r])/v_th_function(Ts_pal[r]))**2))**(-kappas[r]-1.)
     
     fitting_c=np.zeros(shape = (Nv**2, 1))
     for j in range(Nv):
         for i in range(Nv):
-            fitting_c[j*Nv+i]=nc[r]*(U_solar(z[0])/U_solar(z[r]))*(r_s**3)*(n(z[r])*10**6)*(v_th_function(Tc_pal[r])*v_th_function(Tc_per[r])**2)**(-1)*(2/(np.pi*(2*kappac[r]-3)))**1.5*(gamma(kappac[r]+1)/gamma(kappac[r]-0.5))*(1.+(2/(2*kappac[r]-3))*(((per_v[j])/v_th_function(Tc_per[r]))**2)+(2/(2*kappac[r]-3))*(((pal_v[i]-Uc[r])/v_th_function(Tc_pal[r]))**2))**(-kappac[r]-1.)
+            fitting_c[j*Nv+i]=nc[r]*(r_s**3)*Density[r]*(v_th_function(Tc_pal[r])*v_th_function(Tc_per[r])**2)**(-1)*(2/(np.pi*(2*kappac[r]-3)))**1.5*(gamma(kappac[r]+1)/gamma(kappac[r]-0.5))*(1.+(2/(2*kappac[r]-3))*(((per_v[j])/v_th_function(Tc_per[r]))**2)+(2/(2*kappac[r]-3))*(((pal_v[i]-Uc[r])/v_th_function(Tc_pal[r]))**2))**(-kappac[r]-1.)
 
     fitting_s=np.zeros(shape = (Nv**2, 1))
     for j in range(Nv):
         for i in range(Nv):
-            fitting_s[j*Nv+i]=(ns[r])*(U_solar(z[0])/U_solar(z[r]))*(r_s**3)*(n(z[r])*10**6)*(v_th_function(Ts_pal[r])*v_th_function(Ts_per[r])**2)**(-1)*(2/(np.pi*(2*kappas[r]-3)))**1.5*(gamma(kappas[r]+1)/gamma(kappas[r]-0.5))*(1.+(2/(2*kappas[r]-3))*(((per_v[j])/v_th_function(Ts_per[r]))**2)+(2/(2*kappas[r]-3))*(((pal_v[i]-Us[r])/v_th_function(Ts_pal[r]))**2))**(-kappas[r]-1.)
+            fitting_s[j*Nv+i]=(ns[r])*(r_s**3)*Density[r]*(v_th_function(Ts_pal[r])*v_th_function(Ts_per[r])**2)**(-1)*(2/(np.pi*(2*kappas[r]-3)))**1.5*(gamma(kappas[r]+1)/gamma(kappas[r]-0.5))*(1.+(2/(2*kappas[r]-3))*(((per_v[j])/v_th_function(Ts_per[r]))**2)+(2/(2*kappas[r]-3))*(((pal_v[i]-Us[r])/v_th_function(Ts_pal[r]))**2))**(-kappas[r]-1.)
 
 
     
