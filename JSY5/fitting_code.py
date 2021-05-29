@@ -168,7 +168,7 @@ for r in range(Nr):
         DataChosen = np.where((f_11/maxi)> 10**(-5));
         return np.log10(fitting[DataChosen])-np.log10(f_11[DataChosen]) #np.log10(fitting/fit_maxi)-np.log10(f_11/maxi) 
 
-    mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 1500}, nan_policy='omit')
+    mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 1800}, nan_policy='omit')
     #lmfit.printfuncs.report_fit(mi.params, min_correl=0.5)
     print(fit_report(mi))
     zx =  mi.params
@@ -215,7 +215,7 @@ for r in range(Nr):
             solu1[j,i]=np.log10(fitting[j*Nv+i]/fitting_max)
     fig = plt.figure()
     fig.set_dpi(500)
-    plt.contourf(X2, Y2, solu1, cont_lev,cmap='Blues');
+    plt.contourf(X2, Y2,solu1, cont_lev,cmap='Blues');
     ax = plt.gca()
     ax.spines['left'].set_position('center')
     ax.spines['left'].set_smart_bounds(True)
@@ -229,29 +229,33 @@ for r in range(Nr):
     ax.yaxis.set_ticks_position('left')
     plt.rc('font', size=8)
     plt.tick_params(labelsize=8)
-    plt.text(pal_v[Nv-1],-0.,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=8)
-    plt.text(-0.,pal_v[Nv-1],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=8)
-    plt.text(pal_v[Nv-10],pal_v[Nv-3], r'$r/r_s=$' "%.2f" % z[r], fontsize=8)
-    plt.text(pal_v[Nv-10],pal_v[Nv-4], r'$Nv=$' "%.2f" % Nv, fontsize=8)
-    plt.text(pal_v[Nv-10],pal_v[Nv-5], r'$Nr=$' "%.2f" % Nr, fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-1], r'$n_c=$' "%.3f" % nc[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-2], r'$n_s=$' "%.3f" % ns[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-3], r'$Tc_{pal}(K)=$' "%.3f" % Tc_pal[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-4], r'$Tc_{per}(K)=$' "%.3f" % Tc_per[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-5], r'$Ts_{pal}(K)=$' "%.3f" % Ts_pal[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-6], r'$Ts_{per}(K)=$' "%.3f" % Ts_per[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-7], r'$U_c/_{Ae0}=$' "%.3f" % Uc[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-8], r'$U_s/_{Ae0}=$' "%.3f" % Us[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-9], r'$kappa_c=$' "%.3f" % kappac[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-10], r'$kappa_s=$' "%.3f" % kappas[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-11], r'$v_{Ae}(m/s)=$' "%.3f" % v_Ae[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-12], r'$\beta_c=$' "%.3f" % beta_c[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-13], r'$\beta_s=$' "%.3f" % beta_s[r], fontsize=8)
-    plt.text(pal_v[0],pal_v[Nv-14], r'$reducedCS=$' "%.3f" % mi.redchi, fontsize=8)
+    plt.text(pal_v[Nv-10],0.3,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
+    plt.text(0.,pal_v[Nv-3],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
+    plt.text(pal_v[Nv-15],pal_v[Nv-4], r'$r/r_s=$' "%.2f" % z[r], fontsize=12)
+    plt.text(pal_v[0],pal_v[Nv-4], r'$n_c=$' "%.3f" % nc[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-6], r'$n_s=$' "%.3f" % ns[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-8], r'$Tc_{pal}(K)=$' "%.0f" % Tc_pal[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-10], r'$Tc_{per}(K)=$' "%.0f" % Tc_per[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-12], r'$Ts_{pal}(K)=$' "%.0f" % Ts_pal[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-14], r'$Ts_{per}(K)=$' "%.0f" % Ts_per[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-16], r'$U_c/_{Ae0}=$' "%.1f" % Uc[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-18], r'$U_s/_{Ae0}=$' "%.1f" % Us[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-20], r'$kappa_c=$' "%.0f" % kappac[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-22], r'$kappa_s=$' "%.0f" % kappas[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-24], r'$v_{Ae}(m/s)=$' "%.0f" % v_Ae[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-26], r'$\beta_c=$' "%.4f" % beta_c[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-28], r'$\beta_s=$' "%.4f" % beta_s[r], fontsize=8)
+    plt.text(pal_v[0],pal_v[Nv-30], r'$reducedCS=$' "%.3f" % mi.redchi, fontsize=8)
+    #plt.text(pal_v[Nv-10],pal_v[Nv-2], r'$T(\mathcal{v}_{Ae0}/r_s):$' "%.2f" % nu, fontsize=8)
+    #plt.text(pal_v[Nv-10],pal_v[Nv-4], r'$Nv=$' "%.2f" % Nv, fontsize=8)
+    #plt.text(pal_v[Nv-10],pal_v[Nv-5], r'$Nr=$' "%.2f" % Nr, fontsize=8)
     plt.colorbar(label=r'$Log(F/F_{MAX})$')
     plt.savefig(f'{path_current}fitting/{r}.png')
     plt.clf()
     plt.close()
+
+
+
 
     solu2=np.zeros(shape = (Nv))
     solu2_c=np.zeros(shape = (Nv))
@@ -310,8 +314,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([0,1])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Relative \ Density$', fontsize=28)
-ax.plot(z,nc,linewidth=3.0, color='k',label=r'$nc$');
-ax.plot(z,ns,linewidth=3.0, color='r',label=r'$ns$');
+ax.plot(z,nc,linewidth=3.0, color='k',label=r'$n_c/n_e$');
+ax.plot(z,ns,linewidth=3.0, color='r',label=r'$n_s/n_e$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/density.png')
 plt.clf()
@@ -343,11 +347,11 @@ plt.rc('font', size=35)
 plt.tick_params(labelsize=40)
 plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 ax.set_xlim([z[0],z[Nr-1]])
-ax.set_ylim([-1,4])
+ax.set_ylim([-1,7])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Bulk \ Velocity$', fontsize=28)
-ax.plot(z,Uc,linewidth=3.0, color='k',label=r'$U_c$');
-ax.plot(z,Us,linewidth=3.0, color='r',label=r'$U_s$');
+ax.plot(z,Uc,linewidth=3.0, color='k',label=r'$U_c/v_{Ae0}$');
+ax.plot(z,Us,linewidth=3.0, color='r',label=r'$U_s/_{Ae0}$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/BulkVelocity.png')
 plt.clf()
@@ -378,7 +382,7 @@ plt.rc('font', size=35)
 plt.tick_params(labelsize=40)
 plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 ax.set_xlim([z[0],z[Nr-1]])
-ax.set_ylim([0,0.1])
+ax.set_ylim([0,0.01])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Beta \ Value$', fontsize=28)
 ax.plot(z,beta_c,linewidth=3.0, color='k',label=r'$\beta_c$');
