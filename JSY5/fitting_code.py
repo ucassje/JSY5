@@ -270,8 +270,8 @@ for r in range(Nr):
     fig = plt.figure()
     fig.set_dpi(500)
     plt.plot(pal_v,solu2,color='k',label=r'$r/r_s=$' "%.2f" % z[r]);
-    plt.plot(pal_v,solu2_c,color='r',label=r'$r/r_s=$' "%.2f" % z[r]);
-    plt.plot(pal_v,solu2_s,color='b',label=r'$r/r_s=$' "%.2f" % z[r]);
+    plt.plot(pal_v,solu2_c,color='r');
+    plt.plot(pal_v,solu2_s,color='b');
     plt.legend(loc='upper right')
     plt.grid()
     ax = plt.gca()
