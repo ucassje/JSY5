@@ -314,8 +314,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([0,1])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Relative \ Density$', fontsize=28)
-ax.plot(z,nc,linewidth=3.0, color='k',label=r'$n_c/n_e$');
-ax.plot(z,ns,linewidth=3.0, color='r',label=r'$n_s/n_e$');
+ax.plot(z,nc,linewidth=6.0, color='b',label=r'$n_c/n_e$');
+ax.plot(z,ns,linewidth=6.0, color='r',label=r'$n_s/n_e$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/density.png')
 plt.clf()
@@ -330,11 +330,11 @@ plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([10**(5),20*10**(5)])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
-ax.set_ylabel(r'$Temperatures$', fontsize=28)
-ax.plot(z,Tc_pal,linewidth=3.0, color='k',label=r'$Tc_{pal}$');
-ax.plot(z,Tc_per,linewidth=3.0, color='r',label=r'$Tc_{per}$');
-ax.plot(z,Ts_pal,linewidth=3.0, color='k',linestyle='dotted',label=r'$Ts_{pal}$');
-ax.plot(z,Ts_per,linewidth=3.0, color='r',linestyle='dotted',label=r'$Ts_{per}$');
+ax.set_ylabel(r'$Temperatures (K)$', fontsize=28)
+ax.plot(z,Tc_pal,linewidth=6.0, color='b',label=r'$Tc_{pal}$');
+ax.plot(z,Tc_per,linewidth=6.0, color='r',label=r'$Tc_{per}$');
+ax.plot(z,Ts_pal,linewidth=6.0, color='b',linestyle='dotted',label=r'$Ts_{pal}$');
+ax.plot(z,Ts_per,linewidth=6.0, color='r',linestyle='dotted',label=r'$Ts_{per}$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/temperature.png')
 plt.clf()
@@ -350,8 +350,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([-1,7])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Bulk \ Velocity$', fontsize=28)
-ax.plot(z,Uc,linewidth=3.0, color='k',label=r'$U_c/v_{Ae0}$');
-ax.plot(z,Us,linewidth=3.0, color='r',label=r'$U_s/v_{Ae0}$');
+ax.plot(z,Uc,linewidth=6.0, color='b',label=r'$U_c/v_{Ae0}$');
+ax.plot(z,Us,linewidth=6.0, color='r',label=r'$U_s/v_{Ae0}$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/BulkVelocity.png')
 plt.clf()
@@ -367,8 +367,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([2,50])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Kappa \ Value$', fontsize=28)
-ax.plot(z,kappac,linewidth=3.0, color='k',label=r'$kappa_c$');
-ax.plot(z,kappas,linewidth=3.0, color='r',label=r'$kappa_s$');
+ax.plot(z,kappac,linewidth=6.0, color='b',label=r'$kappa_c$');
+ax.plot(z,kappas,linewidth=6.0, color='r',label=r'$kappa_s$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/Kappa.png')
 plt.clf()
@@ -385,8 +385,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([0,0.01])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Beta \ Value$', fontsize=28)
-ax.plot(z,beta_c,linewidth=3.0, color='k',label=r'$\beta_c$');
-ax.plot(z,beta_s,linewidth=3.0, color='r',label=r'$\beta_s$');
+ax.plot(z,beta_c,linewidth=6.0, color='b',label=r'$\beta_c$');
+ax.plot(z,beta_s,linewidth=6.0, color='r',label=r'$\beta_s$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/beta.png')
 plt.clf()
@@ -406,8 +406,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([0,10])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Bulk \ Velocity$', fontsize=28)
-ax.plot(z,Threshold,linewidth=3.0, color='k',label=r'$Threshold$');
-ax.plot(z,Us,linewidth=3.0, color='r',label=r'$U_s$');
+ax.plot(z,Threshold,linewidth=6.0, color='k',label=r'$Threshold$');
+ax.plot(z,Us,linewidth=6.0, color='r',label=r'$U_s$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/threshold.png')
 plt.clf()
