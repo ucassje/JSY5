@@ -37,7 +37,7 @@ q=1.6022*(10**(-19))
 Me=9.1094*(10**(-31))
 Mp=1.6726*(10**(-27))
 ratio=(Me/Mp)**0.5
-Mv=15*10**6/v_Ae_0  #5*10**7 #(2/3)*5*10**7 
+Mv=20*10**6/v_Ae_0  #5*10**7 #(2/3)*5*10**7 
 epsilon=8.8542*10**(-12)
 pal_v = np.linspace(-Mv, Mv, Nv)
 per_v = np.linspace(-Mv, Mv, Nv)
@@ -133,7 +133,7 @@ for r in range(Nr):
                 for i in range(Nv):
                         f_1[j*Nv+i,r]=Kappa_Initial_Core(pal_v[i],per_v[j],z[r])
 
-f_1 = np.load('data_next.npy')
+#f_1 = np.load('data_next.npy')
 
 ratio_r=np.zeros(shape = (Nv**2, Nr))
 for r in range(Nr-1):
@@ -602,7 +602,7 @@ solu1=np.zeros(shape = (Nv, Nv))
 solu2=np.zeros(shape = (Nv))
 
 
-timestep=100 #700
+timestep=1000 #700
 Normvalue=np.zeros(shape = (timestep))
 Normvalue_bulk=np.zeros(shape = (timestep))
 for k in range(timestep):
