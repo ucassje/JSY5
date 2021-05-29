@@ -351,7 +351,7 @@ ax.set_ylim([-1,7])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Bulk \ Velocity$', fontsize=28)
 ax.plot(z,Uc,linewidth=3.0, color='k',label=r'$U_c/v_{Ae0}$');
-ax.plot(z,Us,linewidth=3.0, color='r',label=r'$U_s/_{Ae0}$');
+ax.plot(z,Us,linewidth=3.0, color='r',label=r'$U_s/v_{Ae0}$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/BulkVelocity.png')
 plt.clf()
