@@ -36,7 +36,7 @@ q=1.6022*(10**(-19))
 Me=9.1094*(10**(-31))
 Mp=1.6726*(10**(-27))
 ratio=(Me/Mp)**0.5
-Mv=15*10**6/v_Ae_0  #5*10**7 #(2/3)*5*10**7 
+Mv=20*10**6/v_Ae_0  #5*10**7 #(2/3)*5*10**7 
 epsilon=8.8542*10**(-12)
 pal_v = np.linspace(-Mv, Mv, Nv)
 per_v = np.linspace(-Mv, Mv, Nv)
@@ -128,7 +128,7 @@ v_Ae=np.zeros(shape = (Nr))
 beta_c=np.zeros(shape = (Nr))
 beta_s=np.zeros(shape = (Nr))
 
-f_1 = np.load('data_next.npy')
+f_1 = np.load('data_800.npy')
 Density=np.zeros(shape = (Nr))
 for r in range(Nr):
    tempDensity=0
