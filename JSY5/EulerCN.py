@@ -133,7 +133,7 @@ for r in range(Nr):
                 for i in range(Nv):
                         f_1[j*Nv+i,r]=Kappa_Initial_Core(pal_v[i],per_v[j],z[r])
 
-#f_1 = np.load('data_next.npy')
+f_1 = np.load('data_600.npy')
 
 ratio_r=np.zeros(shape = (Nv**2, Nr))
 for r in range(Nr-1):
@@ -602,7 +602,7 @@ solu1=np.zeros(shape = (Nv, Nv))
 solu2=np.zeros(shape = (Nv))
 
 
-timestep=1000 #700
+timestep=100 #700
 Normvalue=np.zeros(shape = (timestep))
 Normvalue_bulk=np.zeros(shape = (timestep))
 for k in range(timestep):
