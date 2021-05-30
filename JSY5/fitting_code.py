@@ -145,10 +145,10 @@ for r in range(Nr):
     print(r)
     if r==0:
             p = lmfit.Parameters()
-            p.add_many(('nc', 1,True,0.8,1),('ns', 0.0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 1*10**5,True,1*10**5,20*10**5), ('Ts_per', 1*10**5,True,1*10**5,20*10**5), ('Uc',0,True,-0.5,0),('Us',4,True,0,7),('kappac',2,True,2,50),('kappas',2,True,2,50))
+            p.add_many(('nc', 1,True,0.8,1),('ns', 0.0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 1*10**5,True,1*10**5,20*10**5), ('Ts_per', 1*10**5,True,1*10**5,20*10**5), ('Uc',0,True,-0.7,0),('Us',4,True,0,7),('kappac',2,True,2,50),('kappas',2,True,2,50))
     else:                          #,('Us',0,True,0,1.5) , ('Uc',0,True,-0.4,0) 
             p = lmfit.Parameters()
-            p.add_many(('nc', nc[r-1],True,0.8,1),('ns', ns[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,20*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,20*10**5), ('Uc',Uc[r-1],True,-0.5,0),('Us',Us[r-1],True,0,7),('kappac',kappac[r-1],True,4,50),('kappas',kappas[r-1],True,2,50))
+            p.add_many(('nc', nc[r-1],True,0.8,1),('ns', ns[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,20*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,20*10**5), ('Uc',Uc[r-1],True,-0.7,0),('Us',Us[r-1],True,0,7),('kappac',kappac[r-1],True,4,50),('kappas',kappas[r-1],True,2,50))
                                    #,('Us',Us,True,0,1.5) , ('Uc',Uc,True,-0.4,0.4) 
     f_11=np.zeros(shape = (Nv**2, 1))
     for j in range(Nv):
@@ -269,9 +269,9 @@ for r in range(Nr):
         solu2_s[i]=np.log10(fitting_s[30*Nv+i]/fitting_max)
     fig = plt.figure()
     fig.set_dpi(500)
-    plt.plot(pal_v,solu2_c,color='b');
-    plt.plot(pal_v,solu2_s,color='r');
     plt.plot(pal_v,solu2,color='k',label=r'$r/r_s=$' "%.2f" % z[r]);
+    plt.plot(pal_v,solu2_c,color='r');
+    plt.plot(pal_v,solu2_s,color='b');
     plt.legend(loc='upper right')
     plt.grid()
     ax = plt.gca()
@@ -296,7 +296,7 @@ for r in range(Nr):
     plt.text(pal_v[0],-6, r'$\beta_s=$' "%.4f" % beta_s[r], fontsize=8)
     plt.text(pal_v[0],-6.5, r'$reduced CS=$' "%.3f" % mi.redchi, fontsize=8)
     plt.text(-2*delv,-8.7,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
-    plt.text(-3*delv,1*delv,r'$Log(F/F_{MAX})$', fontsize=12)
+    plt.text(-2*delv,2*delv,r'$Log(F/F_{MAX})$', fontsize=12)
     plt.ylim([-8, 0])
     plt.xlim([-Mv, Mv])
     plt.rc('font', size=8)
