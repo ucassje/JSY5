@@ -602,7 +602,7 @@ solu1=np.zeros(shape = (Nv, Nv))
 solu2=np.zeros(shape = (Nv))
 
 
-timestep=200 #700
+timestep=400 #700
 Normvalue=np.zeros(shape = (timestep))
 Normvalue_bulk=np.zeros(shape = (timestep))
 for k in range(timestep):
