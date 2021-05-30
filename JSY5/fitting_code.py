@@ -145,10 +145,10 @@ for r in range(Nr):
     print(r)
     if r==0:
             p = lmfit.Parameters()
-            p.add_many(('nc', 1,True,0.8,1),('ns', 0.0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 1*10**5,True,1*10**5,20*10**5), ('Ts_per', 1*10**5,True,1*10**5,20*10**5), ('Uc',0,True,-1,0),('Us',4,True,0,7),('kappac',2,True,2,50),('kappas',2,True,2,50))
+            p.add_many(('nc', 1,True,0.8,1),('ns', 0.0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 1*10**5,True,1*10**5,20*10**5), ('Ts_per', 1*10**5,True,1*10**5,20*10**5), ('Uc',0,True,-0.5,0),('Us',4,True,0,7),('kappac',2,True,2,50),('kappas',2,True,2,50))
     else:                          #,('Us',0,True,0,1.5) , ('Uc',0,True,-0.4,0) 
             p = lmfit.Parameters()
-            p.add_many(('nc', nc[r-1],True,0.8,1),('ns', ns[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,20*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,20*10**5), ('Uc',Uc[r-1],True,-1,0),('Us',Us[r-1],True,0,7),('kappac',kappac[r-1],True,4,50),('kappas',kappas[r-1],True,2,50))
+            p.add_many(('nc', nc[r-1],True,0.8,1),('ns', ns[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,20*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,20*10**5), ('Uc',Uc[r-1],True,-0.5,0),('Us',Us[r-1],True,0,7),('kappac',kappac[r-1],True,4,50),('kappas',kappas[r-1],True,2,50))
                                    #,('Us',Us,True,0,1.5) , ('Uc',Uc,True,-0.4,0.4) 
     f_11=np.zeros(shape = (Nv**2, 1))
     for j in range(Nv):
@@ -317,8 +317,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([0,1])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Relative \ Density$', fontsize=28)
-ax.plot(z,nc,linewidth=6.0, color='b',label=r'$n_c/n_e$');
-ax.plot(z,ns,linewidth=6.0, color='r',label=r'$n_s/n_e$');
+ax.plot(z,nc,linewidth=4.0, color='b',label=r'$n_c/n_e$');
+ax.plot(z,ns,linewidth=4.0, color='r',label=r'$n_s/n_e$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/density.png')
 plt.clf()
@@ -334,10 +334,10 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([10**(5),20*10**(5)])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Temperatures (K)$', fontsize=28)
-ax.plot(z,Tc_pal,linewidth=6.0, color='b',label=r'$Tc_{pal}$');
-ax.plot(z,Tc_per,linewidth=6.0, color='b',linestyle='dotted',label=r'$Tc_{per}$');
-ax.plot(z,Ts_pal,linewidth=6.0, color='r',label=r'$Ts_{pal}$');
-ax.plot(z,Ts_per,linewidth=6.0, color='r',linestyle='dotted',label=r'$Ts_{per}$');
+ax.plot(z,Tc_pal,linewidth=4.0, color='b',label=r'$Tc_{pal}$');
+ax.plot(z,Tc_per,linewidth=4.0, color='b',linestyle='dotted',label=r'$Tc_{per}$');
+ax.plot(z,Ts_pal,linewidth=4.0, color='r',label=r'$Ts_{pal}$');
+ax.plot(z,Ts_per,linewidth=4.0, color='r',linestyle='dotted',label=r'$Ts_{per}$');
 ax.plot(z,max(Tc_pal)*(z[0]/z)**0.8,linewidth=3.0, color='k',linestyle='--',label=r'$1/r^{0.8} \ Profile$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/temperature.png')
@@ -354,8 +354,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([-1,7])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Bulk \ Velocity$', fontsize=28)
-ax.plot(z,Uc,linewidth=6.0, color='b',label=r'$U_c/v_{Ae0}$');
-ax.plot(z,Us,linewidth=6.0, color='r',label=r'$U_s/v_{Ae0}$');
+ax.plot(z,Uc,linewidth=4.0, color='b',label=r'$U_c/v_{Ae0}$');
+ax.plot(z,Us,linewidth=4.0, color='r',label=r'$U_s/v_{Ae0}$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/BulkVelocity.png')
 plt.clf()
@@ -371,8 +371,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([2,50])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Kappa \ Value$', fontsize=28)
-ax.plot(z,kappac,linewidth=6.0, color='b',label=r'$kappa_c$');
-ax.plot(z,kappas,linewidth=6.0, color='r',label=r'$kappa_s$');
+ax.plot(z,kappac,linewidth=4.0, color='b',label=r'$kappa_c$');
+ax.plot(z,kappas,linewidth=4.0, color='r',label=r'$kappa_s$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/Kappa.png')
 plt.clf()
@@ -389,8 +389,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([0,0.01])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Beta \ Value$', fontsize=28)
-ax.plot(z,beta_c,linewidth=6.0, color='b',label=r'$\beta_c$');
-ax.plot(z,beta_s,linewidth=6.0, color='r',label=r'$\beta_s$');
+ax.plot(z,beta_c,linewidth=4.0, color='b',label=r'$\beta_c$');
+ax.plot(z,beta_s,linewidth=4.0, color='r',label=r'$\beta_s$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/beta.png')
 plt.clf()
@@ -410,8 +410,8 @@ ax.set_xlim([z[0],z[Nr-1]])
 ax.set_ylim([0,10])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Bulk \ Velocity$', fontsize=28)
-ax.plot(z,Threshold,linewidth=6.0, color='k',label=r'$Threshold$');
-ax.plot(z,Us,linewidth=6.0, color='r',label=r'$U_s$');
+ax.plot(z,Threshold,linewidth=4.0, color='k',label=r'$Threshold$');
+ax.plot(z,Us,linewidth=4.0, color='r',label=r'$U_s$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/threshold.png')
 plt.clf()
