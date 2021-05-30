@@ -269,9 +269,9 @@ for r in range(Nr):
         solu2_s[i]=np.log10(fitting_s[30*Nv+i]/fitting_max)
     fig = plt.figure()
     fig.set_dpi(500)
+    plt.plot(pal_v,solu2_c,color='b');
+    plt.plot(pal_v,solu2_s,color='r');
     plt.plot(pal_v,solu2,color='k',label=r'$r/r_s=$' "%.2f" % z[r]);
-    plt.plot(pal_v,solu2_c,color='r');
-    plt.plot(pal_v,solu2_s,color='b');
     plt.legend(loc='upper right')
     plt.grid()
     ax = plt.gca()
