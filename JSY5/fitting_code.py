@@ -128,7 +128,7 @@ v_Ae=np.zeros(shape = (Nr))
 beta_c=np.zeros(shape = (Nr))
 beta_s=np.zeros(shape = (Nr))
 
-f_1 = np.load('data_800.npy')
+f_1 = np.load('data_next.npy')
 Density=np.zeros(shape = (Nr))
 for r in range(Nr):
    tempDensity=0
