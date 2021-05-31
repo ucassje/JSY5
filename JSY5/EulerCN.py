@@ -37,7 +37,7 @@ q=1.6022*(10**(-19))
 Me=9.1094*(10**(-31))
 Mp=1.6726*(10**(-27))
 ratio=(Me/Mp)**0.5
-Mv=40*10**6/v_Ae_0  #5*10**7 #(2/3)*5*10**7 
+Mv=15*10**6/v_Ae_0  #5*10**7 #(2/3)*5*10**7 
 epsilon=8.8542*10**(-12)
 pal_v = np.linspace(-Mv+Mv/2, Mv+Mv/2, Nv)
 per_v = np.linspace(-Mv, Mv, Nv)
@@ -738,7 +738,40 @@ for k in range(timestep):
                 l=1
                 print("H")
 
-        
+                for j in range(Nv):
+                    for i in range(Nv):
+                            if f_1[(j)*Nv+i,1]/np.amax(f_1)>1:
+                                    solu1[j,i]=0
+                            elif f_1[(j)*Nv+i,1]/np.amax(f_1)>10**(-10):
+                                    solu1[j,i]=np.log10(f_1[(j)*Nv+i,1]/np.amax(f_1))
+                            else:
+                                    solu1[j,i]=-10
+                fig = plt.figure()
+                fig.set_dpi(500)
+                plt.contourf(X2, Y2,solu1, cont_lev,cmap='Blues');
+                ax = plt.gca()
+                ax.spines['left'].set_position('center')
+                ax.spines['left'].set_smart_bounds(True)
+                ax.spines['bottom'].set_position('zero')
+                ax.spines['bottom'].set_smart_bounds(True)
+                ax.spines['right'].set_color('none')
+                ax.spines['top'].set_color('none')
+                ax.xaxis.set_ticks_position('bottom')
+                plt.axis('equal')
+                ax.xaxis.set_ticks_position('bottom')
+                ax.yaxis.set_ticks_position('left')
+                plt.rc('font', size=8)
+                plt.tick_params(labelsize=8)
+                plt.text(pal_v[Nv-6],0.1,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
+                plt.text(0.,pal_v[Nv-2],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
+                plt.text(pal_v[Nv-9],pal_v[Nv-3], r'$r/r_s=$' "%.2f" % z[1], fontsize=12)
+                #plt.text(pal_v[Nv-10],pal_v[Nv-2], r'$T(\mathcal{v}_{Ae0}/r_s):$' "%.2f" % nu, fontsize=8)
+                #plt.text(pal_v[Nv-10],pal_v[Nv-4], r'$Nv=$' "%.2f" % Nv, fontsize=8)
+                #plt.text(pal_v[Nv-10],pal_v[Nv-5], r'$Nr=$' "%.2f" % Nr, fontsize=8)
+                plt.colorbar(label=r'$Log(F/F_{MAX})$')
+                plt.savefig(f'{path_current}r=1/{k}.png')
+                plt.clf()
+                plt.close()
                 
 
                 for j in range(Nv):
