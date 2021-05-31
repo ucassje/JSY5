@@ -859,6 +859,7 @@ for k in range(timestep):
         f_next[:,:]=f_1[:,:]
         norm=0
         for R in range(Nr):
+                norm=0
                 for J in range(Nv):
                         for I in range(Nv):
                                 norm=norm+abs((f_next[J*Nv+I,R]/np.max(f_next[:,R])-f_pre[J*Nv+I,R]/np.max(f_pre[:,R])))**2
