@@ -586,7 +586,7 @@ for p in range(10):
                               if per_v[j]<0:
                                       tempDensity=tempDensity
                               else:
-                                      tempDensity=tempDensity+2*np.pi*f_1[r*(Nv)*(Nv)+j*Nv+i]*abs(per_v[j])*(pal_v[1]-pal_v[0])**2
+                                      tempDensity=tempDensity+2*np.pi*f_1[j*Nv+i,r]*abs(per_v[j])*(pal_v[1]-pal_v[0])**2
                Density_next[r]=tempDensity/(r_s**3)
 
 
@@ -598,7 +598,7 @@ for p in range(10):
                           if per_v[j]<0:
                                   temptemp=temptemp
                           else:
-                                  temptemp=temptemp+2*np.pi*(pal_v[i]**2)*f_1[r*(Nv)*(Nv)+j*Nv+i]*abs(per_v[j])*(pal_v[1]-pal_v[0])**2
+                                  temptemp=temptemp+2*np.pi*(pal_v[i]**2)*f_1[j*Nv+i,r]*abs(per_v[j])*(pal_v[1]-pal_v[0])**2
                Temperature_pal[r]=v_Ae_0**2*Me*temptemp/((r_s**3)*Density_next[r]*Bol_k)
 
         Temperature_per=np.zeros(shape = (Nr))
@@ -609,7 +609,7 @@ for p in range(10):
                           if per_v[j]<0:
                                   temptemp=temptemp
                           else:
-                                  temptemp=temptemp+2*np.pi*(per_v[j]**2)*f_1[r*(Nv)*(Nv)+j*Nv+i]*abs(per_v[j])*(pal_v[1]-pal_v[0])**2
+                                  temptemp=temptemp+2*np.pi*(per_v[j]**2)*f_1[j*Nv+i,r]*abs(per_v[j])*(pal_v[1]-pal_v[0])**2
                Temperature_per[r]=v_Ae_0**2*Me*temptemp/(2*(r_s**3)*Density_next[r]*Bol_k)  
         
         def electric(x):
