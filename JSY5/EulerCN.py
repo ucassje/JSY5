@@ -580,14 +580,14 @@ for p in range(10):
 
         Density_next=np.zeros(shape = (Nr))
         for r in range(Nr):
-           tempDensity=0
-           for j in range(Nv):
-              for i in range(Nv):
-                      if per_v[j]<0:
-                              tempDensity=tempDensity
-                      else:
-                              tempDensity=tempDensity+2*np.pi*f_1[r*(Nv)*(Nv)+j*Nv+i]*abs(per_v[j])*(pal_v[1]-pal_v[0])**2
-           Density_next[r]=tempDensity/(r_s**3)
+               tempDensity=0
+               for j in range(Nv):
+                      for i in range(Nv):
+                              if per_v[j]<0:
+                                      tempDensity=tempDensity
+                              else:
+                                      tempDensity=tempDensity+2*np.pi*f_1[r*(Nv)*(Nv)+j*Nv+i]*abs(per_v[j])*(pal_v[1]-pal_v[0])**2
+               Density_next[r]=tempDensity/(r_s**3)
 
 
         Temperature_pal=np.zeros(shape = (Nr))
