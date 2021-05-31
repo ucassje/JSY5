@@ -133,7 +133,6 @@ for r in range(Nr):
                 for i in range(Nv):
                         f_1[j*Nv+i,r]=Kappa_Initial_Core(pal_v[i],per_v[j],z[r])
 
-#f_1 = np.load('data_next.npy')
 
 ratio_r=np.zeros(shape = (Nv**2, Nr))
 for r in range(Nr-1):
@@ -596,6 +595,8 @@ kl=50
 l=10
 t=0
 
+f_2 = np.load('data_next.npy')
+
 X2,Y2 = np.meshgrid(pal_v,per_v)
 cont_lev = np.linspace(-10,0,25)
 
@@ -617,7 +618,7 @@ for k in range(timestep):
             if r==0:
                 f_1[:,r]=f_initial[:,r]
             elif r==Nr-1:
-                f_1[:,r]=f_pre[:,r]
+                f_1[:,r]=f_2[:,r]
             else:
                 f_1[:,r]=dot(AQ[:,:,r],f_pre[:,r])+dot(AalphaA[:,:,r],f_pre[:,r+1])-dot(AalphaA[:,:,r],f_pre[:,r-1])
             
@@ -642,13 +643,13 @@ for k in range(timestep):
                                             f_temp4[j*Nv+i,r+1]=0.5*(0.5*(f_1[j*Nv+i,r]*ratio_r[j*Nv+i,r]**(-1)+f_1[j*Nv+i,r+1])+0.5*(f_1[j*Nv+i,r+1]+f_1[j*Nv+i,r+2]*ratio_r[j*Nv+i,r+1]))     #0.5*(f_1[(r)*(Nv)*(Nv)+j*Nv+i]*ratio_r[r*(Nv)*(Nv)+j*Nv+i]**(-1)+f_1[(r+2)*(Nv)*(Nv)+j*Nv+i]*ratio_r[(r+1)*(Nv)*(Nv)+j*Nv+i])                                
         f_1[:,:]=f_temp4[:,:]
         f_1[:,0]=f_initial[:,0]
-
+        f_1[:,Nr-1]=f_2[:,Nr-1]
 
 
         f_temp1=np.zeros(shape = (Nv**2, Nr))
         f_temp1[:,:]=f_1[:,:]
         for r in range(Nr):                                             #Von neumann boundary condition for v-derivative
-            if r>0:
+            if r!=0 or r!=Nr-1:
                     for j in range(Nv):                      
                             for i in range(Nv):
                                     if i==0 and j!=0 and j!=Nv-1 and j!=1 and j!=Nv-2:
