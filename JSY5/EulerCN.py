@@ -865,7 +865,7 @@ for k in range(timestep):
                         for I in range(Nv):
                                 norm=norm+abs((f_next[J*Nv+I,R]/np.max(f_next[:,R])-f_pre[J*Nv+I,R]/np.max(f_pre[:,R])))**2
                 Normvalue[k,R]=norm**0.5
-                if k!=0 and R!=Nr-1 and Normvalue[k,R]>=Normvalue[k-1,R]:
+                if k>100 and Normvalue[k,R]>=Normvalue[k-1,R]:
                         Normvalue[:,R]=0
                         f_1[:,R]=f_pre[:,R]
         #Normvalue[k]=norm**0.5
