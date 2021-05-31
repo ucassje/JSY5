@@ -39,7 +39,7 @@ Mp=1.6726*(10**(-27))
 ratio=(Me/Mp)**0.5
 Mv=15*10**6/v_Ae_0  #5*10**7 #(2/3)*5*10**7 
 epsilon=8.8542*10**(-12)
-pal_v = np.linspace(-Mv+Mv/2, Mv+Mv/2, Nv)
+pal_v = np.linspace(-Mv, Mv, Nv)
 per_v = np.linspace(-Mv, Mv, Nv)
 delv=pal_v[1]-pal_v[0]
 
