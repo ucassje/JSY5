@@ -604,7 +604,7 @@ solu1=np.zeros(shape = (Nv, Nv))
 solu2=np.zeros(shape = (Nv))
 
 
-timestep=1000 #700
+timestep=500 #700
 Normvalue=np.zeros(shape = (timestep,Nr))
 Normvalue_bulk=np.zeros(shape = (timestep))
 for k in range(timestep):
@@ -639,8 +639,8 @@ for k in range(timestep):
                             for i in range(Nv):
                                     if r==Nr-2:
                                             f_temp4[j*Nv+i,r+1]=f_1[j*Nv+i,r]*ratio_r[j*Nv+i,r]**(-1)#2*f_temp4[(r)*(Nv)*(Nv)+(j)*Nv+i]*ratio_r[r*(Nv)*(Nv)+j*Nv+i]**(-1)-f_temp4[(r-1)*(Nv)*(Nv)+(j)*Nv+i]*ratio_r[(r-1)*(Nv)*(Nv)+j*Nv+i]**(-1)*ratio_r[r*(Nv)*(Nv)+j*Nv+i]**(-1)   
-                                    else:
-                                            f_temp4[j*Nv+i,r+1]=0.5*(0.5*(f_1[j*Nv+i,r]*ratio_r[j*Nv+i,r]**(-1)+f_1[j*Nv+i,r+1])+0.5*(f_1[j*Nv+i,r+1]+f_1[j*Nv+i,r+2]*ratio_r[j*Nv+i,r+1]))     #0.5*(f_1[(r)*(Nv)*(Nv)+j*Nv+i]*ratio_r[r*(Nv)*(Nv)+j*Nv+i]**(-1)+f_1[(r+2)*(Nv)*(Nv)+j*Nv+i]*ratio_r[(r+1)*(Nv)*(Nv)+j*Nv+i])                                
+                                    #else:
+                                    #        f_temp4[j*Nv+i,r+1]=0.5*(0.5*(f_1[j*Nv+i,r]*ratio_r[j*Nv+i,r]**(-1)+f_1[j*Nv+i,r+1])+0.5*(f_1[j*Nv+i,r+1]+f_1[j*Nv+i,r+2]*ratio_r[j*Nv+i,r+1]))     #0.5*(f_1[(r)*(Nv)*(Nv)+j*Nv+i]*ratio_r[r*(Nv)*(Nv)+j*Nv+i]**(-1)+f_1[(r+2)*(Nv)*(Nv)+j*Nv+i]*ratio_r[(r+1)*(Nv)*(Nv)+j*Nv+i])                                
         f_1[:,:]=f_temp4[:,:]
         f_1[:,0]=f_initial[:,0]
 
