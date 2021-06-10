@@ -58,7 +58,7 @@ Fvv=delt/(delv)**2
 Fz=delt/delz
 print(Fv)
 print(Fz)
-U_f=800000./v_Ae_0
+U_f=400000./v_Ae_0
 T_e=10*10**5; #5*(10**(5))
 T_e_back=10*(10**(5));
 Bol_k=1.3807*(10**(-23));
@@ -76,7 +76,7 @@ print(((f_solar_r-i_solar_r)/U_f)/delt)
 #calculate Beta
 
 def n(r):
-        return n_0(i_solar_r)*(i_solar_r/r)**2
+        return n_0(i_solar_r)*(i_solar_r/r)**2*(U_solar(z[0])/U_solar(r))
 
 def lnn(r):
         return -2/r
@@ -116,7 +116,7 @@ def kappa_v_th_function(T):
 
 def Kappa_Initial_Core(a,b,r):
    kappac=8 #2
-   return (U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*(v_th_function(temperature(r))*v_th_function(temperature(r))**2)**(-1)*(2/(np.pi*(2*kappac-3)))**1.5*(gamma(kappac+1)/gamma(kappac-0.5))*(1.+(2/(2*kappac-3))*((b/v_th_function(temperature(r)))**2)+(2/(2*kappac-3))*((a/v_th_function(temperature(r)))**2))**(-kappac-1.) #(U_f/U_solar(r))*(r_s**3)*(n(r)*10**6)*(2*np.pi*kappa_v_th_function(temperature(r))**3*kappa**1.5)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*gamma(1.5)))*(1.+((b/kappa_v_th_function(temperature(r)))**2)/kappa+((a/kappa_v_th_function(temperature(r)))**2)/kappa)**(-kappa-1.)#+10**(-6)*(r_s**3)*(n(r)*10**6)*(np.pi**1.5*kappa_v_th_function(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/(kappa_v_th_function(temperature(r))*100000))**2)/kappa+((a/(kappa_v_th_function(temperature(r))*100000))**2)/kappa)**(-kappa-1.) #(((7.5*10**9/r_s)/c)**2+0.05*np.exp(-(c-23)**2))*
+   return (r_s**3)*(n(r)*10**6)*(v_th_function(temperature(r))*v_th_function(temperature(r))**2)**(-1)*(2/(np.pi*(2*kappac-3)))**1.5*(gamma(kappac+1)/gamma(kappac-0.5))*(1.+(2/(2*kappac-3))*((b/v_th_function(temperature(r)))**2)+(2/(2*kappac-3))*((a/v_th_function(temperature(r)))**2))**(-kappac-1.) #(U_f/U_solar(r))*(r_s**3)*(n(r)*10**6)*(2*np.pi*kappa_v_th_function(temperature(r))**3*kappa**1.5)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*gamma(1.5)))*(1.+((b/kappa_v_th_function(temperature(r)))**2)/kappa+((a/kappa_v_th_function(temperature(r)))**2)/kappa)**(-kappa-1.)#+10**(-6)*(r_s**3)*(n(r)*10**6)*(np.pi**1.5*kappa_v_th_function(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/(kappa_v_th_function(temperature(r))*100000))**2)/kappa+((a/(kappa_v_th_function(temperature(r))*100000))**2)/kappa)**(-kappa-1.) #(((7.5*10**9/r_s)/c)**2+0.05*np.exp(-(c-23)**2))*
 #(r_s**3)*(n(r)*10**6)/(v_th_function(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function(temperature(r))**2-b**2/v_th_function(temperature(r))**2)
          
 f=np.zeros(shape = (Nv**2, Nr))
@@ -183,39 +183,39 @@ def Collision_Core(a,b,r):
     kappa=50.
     d=0
     if (a**2+b**2)**0.5/v_th_function(temperature(r))==0:
-            d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)/(v_th_function(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function(temperature(r))**2-b**2/v_th_function(temperature(r))**2) #(r_s**3)*(n(r)*10**6)*(np.pi**1.5*v_th_function(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/v_th_function(temperature(r)))**2)/kappa+((a/v_th_function(temperature(r)))**2)/kappa)**(-kappa-1.)            
+            d=(r_s**3)*(n(r)*10**6)/(v_th_function(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function(temperature(r))**2-b**2/v_th_function(temperature(r))**2) #(r_s**3)*(n(r)*10**6)*(np.pi**1.5*v_th_function(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/v_th_function(temperature(r)))**2)/kappa+((a/v_th_function(temperature(r)))**2)/kappa)**(-kappa-1.)            
     else:
-            d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)/(v_th_function(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function(temperature(r))**2-b**2/v_th_function(temperature(r))**2) #(r_s**3)*(n(r)*10**6)*(np.pi**1.5*v_th_function(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/v_th_function(temperature(r)))**2)/kappa+((a/v_th_function(temperature(r)))**2)/kappa)**(-kappa-1.)            
+            d=(r_s**3)*(n(r)*10**6)/(v_th_function(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function(temperature(r))**2-b**2/v_th_function(temperature(r))**2) #(r_s**3)*(n(r)*10**6)*(np.pi**1.5*v_th_function(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/v_th_function(temperature(r)))**2)/kappa+((a/v_th_function(temperature(r)))**2)/kappa)**(-kappa-1.)            
     return d
 
 def Collision_Proton(a,b,r):
     kappa=50.
     d=0
     if (a**2+b**2)**0.5/v_th_function_p(temperature(r))==0:
-            d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)/(v_th_function_p(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function_p(temperature(r))**2-b**2/v_th_function_p(temperature(r))**2) #(r_s**3)*(n(r)*10**6)*(np.pi**1.5*v_th_function_p(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/v_th_function_p(temperature(r)))**2)/kappa+((a/v_th_function_p(temperature(r)))**2)/kappa)**(-kappa-1.)
+            d=(r_s**3)*(n(r)*10**6)/(v_th_function_p(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function_p(temperature(r))**2-b**2/v_th_function_p(temperature(r))**2) #(r_s**3)*(n(r)*10**6)*(np.pi**1.5*v_th_function_p(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/v_th_function_p(temperature(r)))**2)/kappa+((a/v_th_function_p(temperature(r)))**2)/kappa)**(-kappa-1.)
     else:
-            d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)/(v_th_function_p(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function_p(temperature(r))**2-b**2/v_th_function_p(temperature(r))**2) #(r_s**3)*(n(r)*10**6)*(np.pi**1.5*v_th_function_p(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/v_th_function_p(temperature(r)))**2)/kappa+((a/v_th_function_p(temperature(r)))**2)/kappa)**(-kappa-1.)
+            d=(r_s**3)*(n(r)*10**6)/(v_th_function_p(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function_p(temperature(r))**2-b**2/v_th_function_p(temperature(r))**2) #(r_s**3)*(n(r)*10**6)*(np.pi**1.5*v_th_function_p(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/v_th_function_p(temperature(r)))**2)/kappa+((a/v_th_function_p(temperature(r)))**2)/kappa)**(-kappa-1.)
     return d
 
 def G_per_2e(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function(temperature(r))<1 and (a**2+b**2)**0.5>0:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(b**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(b**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function(temperature(r))**5))
     elif (a**2+b**2)==0:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(b**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(b**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function(temperature(r))**5))
     else:
-        d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*b**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))+2*(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*b**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r)))
+        d=(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*b**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))+2*(r_s**3)*(n(r)*10**6)*b**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r)))
     return d
 
 
 def G_per_e(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function(temperature(r))<1 and abs(b)>0:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(1/b)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(1/b)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5))
     elif (a**2+b**2)**0.5/v_th_function(temperature(r))<1 and abs(b)==0:
         d=0*(2*(2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(1/(b+delv))*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+(b+delv)**2)/v_th_function(temperature(r))**3)+(1/10)*((a**2+(b+delv)**2)**2/v_th_function(temperature(r))**5)))-0*(2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(1/(b+2*delv))*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+(b+2*delv)**2)/v_th_function(temperature(r))**3)+(1/10)*((a**2+(b+2*delv)**2)**2/v_th_function(temperature(r))**5))))
     elif (a**2+b**2)**0.5/v_th_function(temperature(r))>=1 and abs(b)>0:
-        d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(1/b)*(0.5/(a**2+b**2)**1.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))
+        d=(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(1/b)*(0.5/(a**2+b**2)**1.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))
     elif (a**2+b**2)**0.5/v_th_function(temperature(r))>=1 and abs(b)==0:
         d=0*(2*((r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(1/(b+delv))*(0.5/(a**2+(b+delv)**2)**1.5)*((2/np.pi**0.5)*((a**2+(b+delv)**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+(b+delv)**2)/v_th_function(temperature(r))**2)+(2*(a**2+(b+delv)**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+(b+delv)**2)**0.5/v_th_function(temperature(r)))))-0*((r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(1/(b+2*delv))*(0.5/(a**2+(b+2*delv)**2)**1.5)*((2/np.pi**0.5)*((a**2+(b+2*delv)**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+(b+2*delv)**2)/v_th_function(temperature(r))**2)+(2*(a**2+(b+2*delv)**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+(b+2*delv)**2)**0.5/v_th_function(temperature(r))))))
     return d
@@ -223,30 +223,30 @@ def G_per_e(a,b,r):
 def G_per_ee(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function(temperature(r))<1 and abs(b)==0:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(b**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function(temperature(r))**5)) #2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(b**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function(temperature(r))**5)) #2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5))
     elif (a**2+b**2)**0.5/v_th_function(temperature(r))>=1 and abs(b)==0:
-        d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*b**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))+2*(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*b**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))) #(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(0.5/(a**2+b**2)**1.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))
+        d=(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*b**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))+2*(r_s**3)*(n(r)*10**6)*b**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))) #(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(0.5/(a**2+b**2)**1.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))
     return d
 
 def G_pal_2e(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function(temperature(r))<1 and (a**2+b**2)**0.5>0:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(a**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(a**2*(a**2+b**2)/v_th_function(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(a**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(a**2*(a**2+b**2)/v_th_function(temperature(r))**5))
     elif (a**2+b**2)==0:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(a**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(a**2*(a**2+b**2)/v_th_function(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function(temperature(r))**3)-(4/15)*(a**2/v_th_function(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function(temperature(r))**5)+(2/5)*(a**2*(a**2+b**2)/v_th_function(temperature(r))**5))
     else:
-        d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*a**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))+2*(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*a**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r)))
+        d=(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*a**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))+2*(r_s**3)*(n(r)*10**6)*a**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r)))
     return d
 
 
 def G_pal_per_e(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function(temperature(r))<1 and (a**2+b**2)**0.5>0:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(-(4/15)*(a*b/v_th_function(temperature(r))**3)+(2/5)*(a*b*(a**2+b**2)/v_th_function(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(-(4/15)*(a*b/v_th_function(temperature(r))**3)+(2/5)*(a*b*(a**2+b**2)/v_th_function(temperature(r))**5))
     elif (a**2+b**2)==0:
         d=0
     else:
-        d=(U_solar(z[0])/U_solar(r))*(-(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(1.5*a*b/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))+2*(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*a*b/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))
+        d=(-(r_s**3)*(n(r)*10**6)*v_th_function(temperature(r))**2*(1.5*a*b/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function(temperature(r))**2)+(2*(a**2+b**2)/v_th_function(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))+2*(r_s**3)*(n(r)*10**6)*a*b/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function(temperature(r))))
     return d
 
 
@@ -261,19 +261,19 @@ def H_pal(a,b,r):
 def G_per_2p(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function_p(temperature(r))<1:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)-(4/15)*(b**2/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function_p(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)-(4/15)*(b**2/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function_p(temperature(r))**5))
     else:
-        d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*b**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))+2*(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*b**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r)))
+        d=(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*b**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))+2*(r_s**3)*(n(r)*10**6)*b**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r)))
     return d
 
 def G_per_p(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function_p(temperature(r))<1 and abs(b)>0:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(1/b)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(1/b)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5))
     elif (a**2+b**2)**0.5/v_th_function_p(temperature(r))<1 and abs(b)==0:
         d=0*(2*(2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(1/(b+delv))*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+(b+delv)**2)/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+(b+delv)**2)**2/v_th_function_p(temperature(r))**5)))-0*(2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(1/(b+2*delv))*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+(b+2*delv)**2)/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+(b+2*delv)**2)**2/v_th_function_p(temperature(r))**5))))
     elif (a**2+b**2)**0.5/v_th_function_p(temperature(r))>=1 and abs(b)>0:
-        d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(1/b)*(0.5/(a**2+b**2)**1.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
+        d=(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(1/b)*(0.5/(a**2+b**2)**1.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
     elif (a**2+b**2)**0.5/v_th_function_p(temperature(r))>=1 and abs(b)==0:
         d=0*(2*((r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(1/(b+delv))*(0.5/(a**2+(b+delv)**2)**1.5)*((2/np.pi**0.5)*((a**2+(b+delv)**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+(b+delv)**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+(b+delv)**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+(b+delv)**2)**0.5/v_th_function_p(temperature(r)))))-0*((r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(1/(b+2*delv))*(0.5/(a**2+(b+2*delv)**2)**1.5)*((2/np.pi**0.5)*((a**2+(b+2*delv)**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+(b+2*delv)**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+(b+2*delv)**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+(b+2*delv)**2)**0.5/v_th_function_p(temperature(r))))))    
     return d
@@ -281,42 +281,42 @@ def G_per_p(a,b,r):
 def G_per_pp(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function_p(temperature(r))<1 and abs(b)==0:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)-(4/15)*(b**2/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function_p(temperature(r))**5)) #2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)-(4/15)*(b**2/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5)+(2/5)*(b**2*(a**2+b**2)/v_th_function_p(temperature(r))**5)) #2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5))
     elif (a**2+b**2)**0.5/v_th_function_p(temperature(r))>=1 and abs(b)==0:
-        d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*b**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))+2*(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*b**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))) #(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(0.5/(a**2+b**2)**1.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
+        d=(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*b**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))+2*(r_s**3)*(n(r)*10**6)*b**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))) #(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(0.5/(a**2+b**2)**1.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
     return d
 
 
 def G_pal_2p(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function_p(temperature(r))<1:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)-(4/15)*(a**2/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5)+(2/5)*(a**2*(a**2+b**2)/v_th_function_p(temperature(r))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*((2/(3*v_th_function_p(temperature(r))))-(2/15)*((a**2+b**2)/v_th_function_p(temperature(r))**3)-(4/15)*(a**2/v_th_function_p(temperature(r))**3)+(1/10)*((a**2+b**2)**2/v_th_function_p(temperature(r))**5)+(2/5)*(a**2*(a**2+b**2)/v_th_function_p(temperature(r))**5))
     else:
-        d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*a**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))+2*(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*a**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r)))
+        d=(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(0.5/(a**2+b**2)**1.5-1.5*a**2/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))+2*(r_s**3)*(n(r)*10**6)*a**2/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r)))
     return d
 
 def G_pal_per_p(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function_p(temperature(r))<1:
-        d=(U_solar(z[0])/U_solar(r))*2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(-(4/15)*(a*b/(v_th_function_p(temperature(r)))**3)+(2/5)*(a*b*(a**2+b**2)/(v_th_function_p(temperature(r)))**5))
+        d=2*(r_s**3)*(n(r)*10**6)/(np.pi**0.5)*(-(4/15)*(a*b/(v_th_function_p(temperature(r)))**3)+(2/5)*(a*b*(a**2+b**2)/(v_th_function_p(temperature(r)))**5))
     else:
-        d=(U_solar(z[0])/U_solar(r))*(-(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(1.5*a*b/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))+2*(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*a*b/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
+        d=(-(r_s**3)*(n(r)*10**6)*v_th_function_p(temperature(r))**2*(1.5*a*b/(a**2+b**2)**2.5)*((2/np.pi**0.5)*((a**2+b**2)**0.5/v_th_function_p(temperature(r)))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)+(2*(a**2+b**2)/v_th_function_p(temperature(r))**2-1)*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))+2*(r_s**3)*(n(r)*10**6)*a*b/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
     return d
 
 def H_palp(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function_p(temperature(r))<1:
-            d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*(4/np.pi**0.5)*(a/v_th_function_p(temperature(r)))*(-(1/3)*(1/v_th_function_p(temperature(r))**2)+(1/5)*((a**2+b**2)/v_th_function_p(temperature(r))**4))
+            d=(r_s**3)*(n(r)*10**6)*(4/np.pi**0.5)*(a/v_th_function_p(temperature(r)))*(-(1/3)*(1/v_th_function_p(temperature(r))**2)+(1/5)*((a**2+b**2)/v_th_function_p(temperature(r))**4))
     else:
-            d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*(1/v_th_function_p(temperature(r)))*((2/np.pi**0.5)*(a/(a**2+b**2))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)-(a*v_th_function_p(temperature(r)))/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
+            d=(r_s**3)*(n(r)*10**6)*(1/v_th_function_p(temperature(r)))*((2/np.pi**0.5)*(a/(a**2+b**2))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)-(a*v_th_function_p(temperature(r)))/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
     return d
 
 def H_perp(a,b,r):
     d=0
     if (a**2+b**2)**0.5/v_th_function_p(temperature(r))<1:
-            d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*(4/np.pi**0.5)*(b/v_th_function_p(temperature(r)))*(-(1/3)*(1/v_th_function_p(temperature(r))**2)+(1/5)*((a**2+b**2)/v_th_function_p(temperature(r))**4))
+            d=(r_s**3)*(n(r)*10**6)*(4/np.pi**0.5)*(b/v_th_function_p(temperature(r)))*(-(1/3)*(1/v_th_function_p(temperature(r))**2)+(1/5)*((a**2+b**2)/v_th_function_p(temperature(r))**4))
     else:
-            d=(U_solar(z[0])/U_solar(r))*(r_s**3)*(n(r)*10**6)*(1/v_th_function_p(temperature(r)))*((2/np.pi**0.5)*(b/(a**2+b**2))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)-(b*v_th_function_p(temperature(r)))/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
+            d=(r_s**3)*(n(r)*10**6)*(1/v_th_function_p(temperature(r)))*((2/np.pi**0.5)*(b/(a**2+b**2))*np.exp(-(a**2+b**2)/v_th_function_p(temperature(r))**2)-(b*v_th_function_p(temperature(r)))/(a**2+b**2)**1.5*special.erf((a**2+b**2)**0.5/v_th_function_p(temperature(r))))
     return d
 
 
@@ -930,7 +930,7 @@ for r in range(Nr):
 
 for r in range(Nr):
    for i in range(Nv):
-        solu2[i]=np.log10(f_1[(30)*Nv+i,r]/np.amax(f_1))
+        solu2[i]=np.log10(f_1[(15)*Nv+i,r]/np.amax(f_1))
    fig = plt.figure()
    fig.set_dpi(500)
    plt.plot(pal_v,solu2,color='k',label=r'$r/r_s=$' "%.2f" % z[r]);
@@ -955,7 +955,7 @@ for r in range(Nr):
 
 for r in range(Nr):
    for j in range(Nv):
-        solu4[j]=np.log10(f_1[(j)*Nv+30,r]/np.amax(f_1))
+        solu4[j]=np.log10(f_1[(j)*Nv+15,r]/np.amax(f_1))
    fig = plt.figure()
    fig.set_dpi(500)
    plt.plot(per_v,solu4,color='k',label=r'$r/r_s=$' "%.2f" % z[r]);
