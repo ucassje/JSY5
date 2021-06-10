@@ -58,7 +58,7 @@ Fvv=delt/(delv)**2
 Fz=delt/delz
 print(Fv)
 print(Fz)
-U_f=800000./v_Ae_0
+U_f=400000./v_Ae_0
 T_e=10*10**5; #5*(10**(5))
 T_e_back=10*(10**(5));
 Bol_k=1.3807*(10**(-23));
@@ -76,7 +76,7 @@ print(((f_solar_r-i_solar_r)/U_f)/delt)
 #calculate Beta
 
 def n(r):
-        return n_0(i_solar_r)*(i_solar_r/r)**2*(U_solar(z[0])/U_solar(r))
+        return n_0(i_solar_r)*(i_solar_r/r)**2*(U_solar(215)/U_solar(r))
 
 def lnn(r):
         return -2/r
