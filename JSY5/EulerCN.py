@@ -856,25 +856,40 @@ solu4=np.zeros(shape = (Nv))
 cont_lev = np.linspace(-10,0,25)
 
 
-o=np.linspace(1, timestep, timestep)
+#o=np.linspace(1, timestep, timestep)
 
-for r in range(Nr):
-        plt.figure(figsize=(20,15))
-        plt.grid()
-        ax = plt.gca()
-        plt.rc('font', size=35)
-        plt.tick_params(labelsize=40)
-        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-        ax.set_xlim([o[0],o[timestep-1]])
-        ax.set_ylim([10**(-5),0.5*10**(-2)])
-        ax.set_xlabel(r'$t$', fontsize=28)
-        ax.set_ylabel(r'$norm$', fontsize=28)
-        ax.plot(o,Normvalue[:,r],linewidth=3.0, color='k');
-        plt.savefig(f'{path_current}norm/{r}.png')
-        plt.clf()
-        plt.close()
+#for r in range(Nr):
+#        plt.figure(figsize=(20,15))
+#        plt.grid()
+#        ax = plt.gca()
+#        plt.rc('font', size=35)
+#        plt.tick_params(labelsize=40)
+#        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+#        ax.set_xlim([o[0],o[timestep-1]])
+#        ax.set_ylim([10**(-5),0.5*10**(-2)])
+#        ax.set_xlabel(r'$t$', fontsize=28)
+#        ax.set_ylabel(r'$norm$', fontsize=28)
+#        ax.plot(o,Normvalue[:,r],linewidth=3.0, color='k');
+#        plt.savefig(f'{path_current}norm/{r}.png')
+#        plt.clf()
+#        plt.close()
 
+#o=np.linspace(1, timestep, timestep)
 
+#plt.figure(figsize=(20,15))
+#plt.grid()
+#ax = plt.gca()
+#plt.rc('font', size=35)
+#plt.tick_params(labelsize=40)
+#plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+#ax.set_xlim([o[0],o[timestep-1]])
+#ax.set_ylim([10**(-5),10**(-2)])
+#ax.set_xlabel(r'$t$', fontsize=28)
+#ax.set_ylabel(r'$norm$', fontsize=28)
+#ax.plot(o,Normvalue,linewidth=3.0, color='k');
+#plt.savefig(f'{path_current}figure/norm.png')
+#plt.clf()
+#plt.close()
 
 
 for r in range(Nr):
