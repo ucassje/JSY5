@@ -14,7 +14,7 @@ q=1.6022*(10**(-19))
 Me=9.1094*(10**(-31))
 r_s=696340000
 U_f=800
-U_f2=800000
+U_f2=400000
 Omega=2.7*10**(-6)
 i_solar_r=5
 f_solar_r=20
@@ -23,7 +23,7 @@ T_e=1.0;
 path_home="/Users/user/Desktop/profiles/"
 path_current=path_home
 def U_solar(r):
-        return U_f*(np.exp(r/20.)-np.exp(-r/20.))/(np.exp(r/20.)+np.exp(-r/20.)) 
+        return U_f*(np.exp(r/10.)-np.exp(-r/10.))/(np.exp(r/10.)+np.exp(-r/10.)) 
 
 def U_solar3(r):
         return U_f*(np.exp(r/10.)-np.exp(-r/10.))/(np.exp(r/10.)+np.exp(-r/10.)) 
@@ -34,13 +34,15 @@ def U_solar2(r):
 
 
 def B_0(r):
-        return 5*(215/r)**2
+        return 2*(215/r)**2
 
 def n_0(r):
         return 5*(215/r)**2
 
 def n(r):
-        return n_0(i_solar_r)*(i_solar_r/r)**2
+        return n_0(i_solar_r)*(i_solar_r/r)**2*(U_solar(215)/U_solar(r))
+
+print(n(20))
 
 def lnn(r):
         return -2/r
@@ -118,6 +120,8 @@ plt.close()
 
 def B(x):
         return B_0(i_solar_r)*(i_solar_r/x)**2*(1+((x-i_solar_r)*Omega/U_solar(x))**2)**0.5
+
+print(B(20))
 
 plt.figure(figsize=(20,15))
 plt.plot(z, B(z), 'k',linewidth=3.0)
