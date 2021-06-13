@@ -623,8 +623,8 @@ def Matrix_QQ(R):
     return AA
 
 
-
-for p in range(10):
+f_1 = np.load('data_next.npy')
+for p in range(1):
         print(p)
 
         Density_next=np.zeros(shape = (Nr))
@@ -1166,9 +1166,9 @@ for r in range(Nr):
    ax.yaxis.set_ticks_position('left')
    plt.rc('font', size=8)
    plt.tick_params(labelsize=8)
-   plt.text(pal_v[Nv-6],0.1,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
-   plt.text(0.,pal_v[Nv-2],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
-   plt.text(pal_v[Nv-9],pal_v[Nv-3], r'$r/r_s=$' "%.2f" % z[r], fontsize=12)
+   plt.text(pal_v[Nv-13],0.5,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
+   plt.text(0.,pal_v[Nv-4],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
+   plt.text(pal_v[Nv-23],pal_v[Nv-4], r'$r/r_s=$' "%.2f" % z[r], fontsize=12)
    #plt.text(pal_v[Nv-10],pal_v[Nv-2], r'$T(\mathcal{v}_{Ae0}/r_s):$' "%.2f" % nu, fontsize=8)
    #plt.text(pal_v[Nv-10],pal_v[Nv-4], r'$Nv=$' "%.2f" % Nv, fontsize=8)
    #plt.text(pal_v[Nv-10],pal_v[Nv-5], r'$Nr=$' "%.2f" % Nr, fontsize=8)
@@ -1192,8 +1192,8 @@ for r in range(Nr):
    ax.xaxis.set_ticks_position('bottom')
    ax.yaxis.set_ticks_position('left')
    ax.set_yticks([-8,-6,-4,-2,-0])
-   plt.text(-2*delv,-8.7,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
-   plt.text(-3*delv,1*delv,r'$Log(F/F_{MAX})$', fontsize=12)
+   plt.text(-3*delv,-8.7,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
+   plt.text(-3*delv,0.5*delv,r'$Log(F/F_{MAX})$', fontsize=12)
    plt.ylim([-8, 0])
    plt.xlim([-Mv, Mv])
    plt.rc('font', size=8)
