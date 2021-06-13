@@ -168,7 +168,7 @@ for r in range(Nr):
         DataChosen = np.where((f_11/maxi)> 10**(-5));
         return np.log10(fitting[DataChosen])-np.log10(f_11[DataChosen]) #np.log10(fitting/fit_maxi)-np.log10(f_11/maxi) 
 
-    mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 1900}, nan_policy='omit')
+    mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 2500}, nan_policy='omit')
     #lmfit.printfuncs.report_fit(mi.params, min_correl=0.5)
     print(fit_report(mi))
     zx =  mi.params
@@ -351,7 +351,7 @@ plt.rc('font', size=35)
 plt.tick_params(labelsize=40)
 plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 ax.set_xlim([z[0],z[Nr-1]])
-ax.set_ylim([-1,7])
+ax.set_ylim([-1,17])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Bulk \ Velocity$', fontsize=28)
 ax.plot(z,Uc,linewidth=4.0, color='b',label=r'$U_c/v_{Ae0}$');
@@ -407,7 +407,7 @@ plt.rc('font', size=35)
 plt.tick_params(labelsize=40)
 plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 ax.set_xlim([z[0],z[Nr-1]])
-ax.set_ylim([0,10])
+ax.set_ylim([0,17])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Bulk \ Velocity$', fontsize=28)
 ax.plot(z,Threshold,linewidth=4.0, color='k',label=r'$Threshold$');
