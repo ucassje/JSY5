@@ -17,7 +17,7 @@ from numpy import exp, loadtxt, pi, sqrt
 from lmfit import Parameters, fit_report, minimize
 #from lmfit import Model
 import lmfit
-Nv=61  #velocity step number
+Nv=81  #velocity step number
 i_solar_r=5 #10
 f_solar_r=20 #30
 path_home="/Users/user/Desktop/JSY5/"
@@ -28,7 +28,7 @@ def n_0(r):
         return 5*(215/r)**2
 
 def B_0(r):
-        return 5*(215/r)**2
+        return 2*(215/r)**2
 
 v_Ae_0=(B_0(215)*10**(-9))/(4.*np.pi*10**(-7)*9.1094*10**(-31)*n_0(215)*10**6)**0.5
 print(v_Ae_0)
@@ -42,7 +42,7 @@ pal_v = np.linspace(-Mv, Mv, Nv)
 per_v = np.linspace(-Mv, Mv, Nv)
 delv=pal_v[1]-pal_v[0]
 print(delv)
-Nr=30      #radial step number
+Nr=50      #radial step number
 r_s=696340000.
 z=np.linspace(i_solar_r, f_solar_r, Nr)
 delz=z[1]-z[0]
@@ -55,7 +55,7 @@ print(delt)
 Fv=delt/delv
 Fvv=delt/(delv)**2
 Fz=delt/delz
-U_f=800000./v_Ae_0
+U_f=400000./v_Ae_0
 T_e=10*10**5; #5*(10**(5))
 T_e_back=10*(10**(5));
 Bol_k=1.3807*(10**(-23));
@@ -229,9 +229,9 @@ for r in range(Nr):
     ax.yaxis.set_ticks_position('left')
     plt.rc('font', size=8)
     plt.tick_params(labelsize=8)
-    plt.text(pal_v[Nv-10],0.3,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
-    plt.text(0.,pal_v[Nv-3],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
-    plt.text(pal_v[Nv-17],pal_v[Nv-4], r'$r/r_s=$' "%.2f" % z[r], fontsize=12)
+    plt.text(pal_v[Nv-13],0.5,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
+    plt.text(0.,pal_v[Nv-4],r'$\mathcal{v}_\perp/\mathcal{v}_{Ae0}$', fontsize=12)
+    plt.text(pal_v[Nv-23],pal_v[Nv-4], r'$r/r_s=$' "%.2f" % z[r], fontsize=12)
     plt.text(pal_v[0],pal_v[Nv-4], r'$n_c/n_e=$' "%.3f" % nc[r], fontsize=8)
     plt.text(pal_v[0],pal_v[Nv-6], r'$n_s/n_e=$' "%.3f" % ns[r], fontsize=8)
     plt.text(pal_v[0],pal_v[Nv-8], r'$Tc_{pal}(K)=$' "%.0f" % Tc_pal[r], fontsize=8)
@@ -262,11 +262,11 @@ for r in range(Nr):
     solu2_s=np.zeros(shape = (Nv))
     
     for i in range(Nv):
-        solu2[i]=np.log10(fitting[30*Nv+i]/fitting_max)
+        solu2[i]=np.log10(fitting[40*Nv+i]/fitting_max)
     for i in range(Nv):
-        solu2_c[i]=np.log10(fitting_c[30*Nv+i]/fitting_max)
+        solu2_c[i]=np.log10(fitting_c[40*Nv+i]/fitting_max)
     for i in range(Nv):
-        solu2_s[i]=np.log10(fitting_s[30*Nv+i]/fitting_max)
+        solu2_s[i]=np.log10(fitting_s[40*Nv+i]/fitting_max)
     fig = plt.figure()
     fig.set_dpi(500)
     plt.plot(pal_v,solu2_c,color='b');
@@ -295,8 +295,8 @@ for r in range(Nr):
     plt.text(pal_v[0],-5.5, r'$\beta_c=$' "%.4f" % beta_c[r], fontsize=8)
     plt.text(pal_v[0],-6, r'$\beta_s=$' "%.4f" % beta_s[r], fontsize=8)
     plt.text(pal_v[0],-6.5, r'$reduced CS=$' "%.3f" % mi.redchi, fontsize=8)
-    plt.text(-2*delv,-8.7,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
-    plt.text(-3*delv,1*delv,r'$Log(F/F_{MAX})$', fontsize=12)
+    plt.text(-3*delv,-8.7,r'$\mathcal{v}_\parallel/\mathcal{v}_{Ae0}$', fontsize=12)
+    plt.text(-3*delv,0.5*delv,r'$Log(F/F_{MAX})$', fontsize=12)
     plt.ylim([-8, 0])
     plt.xlim([-Mv, Mv])
     plt.rc('font', size=8)
@@ -398,7 +398,7 @@ plt.close()
 
 Threshold=np.zeros(shape = (Nr))
 for r in range(Nr):
-        Threshold[r]=(3*(2*Bol_k*Ts_pal[r]/Me)**0.5)/v_Ae_0
+        Threshold[r]=(3*(2*Bol_k*Tc_pal[r]/Me)**0.5)/v_Ae_0
 print(Threshold)
 plt.figure(figsize=(20,15))
 plt.grid()
@@ -411,7 +411,7 @@ ax.set_ylim([0,10])
 ax.set_xlabel(r'$r/r_s$', fontsize=28)
 ax.set_ylabel(r'$Bulk \ Velocity$', fontsize=28)
 ax.plot(z,Threshold,linewidth=4.0, color='k',label=r'$Threshold$');
-ax.plot(z,Us,linewidth=4.0, color='r',label=r'$U_s$');
+ax.plot(z,Us,linewidth=4.0, color='r',label=r'$U_s/v_{Ae0}$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}fitting/threshold.png')
 plt.clf()
