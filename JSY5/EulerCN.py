@@ -624,7 +624,7 @@ def Matrix_QQ(R):
 
 
 #f_1 = np.load('data_next.npy')
-for p in range(1):
+for p in range(8):
         print(p)
 
         Density_next=np.zeros(shape = (Nr))
