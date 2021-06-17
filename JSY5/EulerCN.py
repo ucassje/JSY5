@@ -115,7 +115,7 @@ def kappa_v_th_function(T):
         return ((2.*kappa-3)*Bol_k*T/(kappa*Me))**0.5/v_Ae_0
 
 def Kappa_Initial_Core(a,b,r):
-   kappac=8 #2
+   kappac=4 #2
    return (r_s**3)*(n(r)*10**6)*(v_th_function(temperature(r))*v_th_function(temperature(r))**2)**(-1)*(2/(np.pi*(2*kappac-3)))**1.5*(gamma(kappac+1)/gamma(kappac-0.5))*(1.+(2/(2*kappac-3))*((b/v_th_function(temperature(r)))**2)+(2/(2*kappac-3))*((a/v_th_function(temperature(r)))**2))**(-kappac-1.) #(U_f/U_solar(r))*(r_s**3)*(n(r)*10**6)*(2*np.pi*kappa_v_th_function(temperature(r))**3*kappa**1.5)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*gamma(1.5)))*(1.+((b/kappa_v_th_function(temperature(r)))**2)/kappa+((a/kappa_v_th_function(temperature(r)))**2)/kappa)**(-kappa-1.)#+10**(-6)*(r_s**3)*(n(r)*10**6)*(np.pi**1.5*kappa_v_th_function(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/(kappa_v_th_function(temperature(r))*100000))**2)/kappa+((a/(kappa_v_th_function(temperature(r))*100000))**2)/kappa)**(-kappa-1.) #(((7.5*10**9/r_s)/c)**2+0.05*np.exp(-(c-23)**2))*
 #(r_s**3)*(n(r)*10**6)/(v_th_function(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function(temperature(r))**2-b**2/v_th_function(temperature(r))**2)
          
@@ -669,44 +669,6 @@ for p in range(9):
                         if abs(x-z[r])<0.5*delz:
                                 l=r
                 return U_solar(x)*dU_solar(x)/(cos(x)**2)+(1/v_Ae_0**2)*(Bol_k)/(Me*Density_next[l])*(Density_next[l]*Temperature_pal[l]-Density_next[l-1]*Temperature_pal[l-1])/delz+2*(1/v_Ae_0**2)*(Bol_k)/(Me)*dcos(x)/cos(x)*Temperature_pal[l]+(1/v_Ae_0**2)*(Bol_k)/(2*Me)*dlnB(x)*Temperature_per[l]+(1/v_Ae_0**2)*(2*Bol_k)/(Me*x)*Temperature_pal[r]#+(1/Density_next[l])*(Density_next[l]*Bulk_next[l]-Density_pre[l]*Bulk_pre[l])/(10*delt)+(Bulk_next[l]/cos(x))*dU_solar(x)+Bulk_next[l]*(dU_solar(x)/cos(x)+U_solar(x)*dcos_1(x))+(U_solar(x)/cos(x))*Bulk_next[l]/x+(U_solar(x)/(cos(x)*Density_next[l]))*(Density_next[l]*Bulk_next[l]-Density_next[l-1]*Bulk_next[l-1])/delz
-
-
-        d_pal_ne=np.zeros(shape = (Nv, Nr))
-        for r in range(Nr):
-                for j in range(Nv):
-                        d_pal_ne[j,r]=abs(f_1[j*Nv+0,r]/f_1[j*Nv+1,r])#abs(f_1[r*(Nv)*(Nv)+j*Nv]-f_1[r*(Nv)*(Nv)+j*Nv+1])
-
-        d_pal_po=np.zeros(shape = (Nv, Nr))
-        for r in range(Nr):
-                for j in range(Nv):
-                        d_pal_po[j,r]=abs(f_1[j*Nv+Nv-1,r]/f_1[j*Nv+Nv-2,r])#abs(f_1[r*(Nv)*(Nv)+j*Nv+Nv-1]-f_1[r*(Nv)*(Nv)+j*Nv+Nv-2])
-
-        d_per_ne=np.zeros(shape = (Nv, Nr))
-        for r in range(Nr):
-                for i in range(Nv):
-                        d_per_ne[i,r]=abs(f_1[i,r]/f_1[1*Nv+i,r])#abs(f_1[r*(Nv)*(Nv)+i]-f_1[r*(Nv)*(Nv)+1*Nv+i])
-
-        d_per_po=np.zeros(shape = (Nv, Nr))
-        for r in range(Nr):
-                for i in range(Nv):
-                        d_per_po[i,r]=abs(f_1[(Nv-1)*Nv+i,r]/f_1[(Nv-2)*Nv+i,r])#abs(f_1[r*(Nv)*(Nv)+(Nv-1)*Nv+i]-f_1[r*(Nv)*(Nv)+(Nv-2)*Nv+i])
-
-        d_pal_ne_per_ne=np.zeros(shape = (Nr, 1))
-        for r in range(Nr):
-                d_pal_ne_per_ne[r]=abs(f_1[0,r]/f_1[1*Nv+1,r])#abs(f_1[r*(Nv)*(Nv)]-f_1[r*(Nv)*(Nv)+1*Nv+1])
-
-        d_pal_ne_per_po=np.zeros(shape = (Nr, 1))
-        for r in range(Nr):
-                d_pal_ne_per_po[r]=abs(f_1[(Nv-1)*Nv,r]/f_1[(Nv-2)*Nv+1,r])#abs(f_1[r*(Nv)*(Nv)+(Nv-1)*Nv]-f_1[r*(Nv)*(Nv)+(Nv-2)*Nv+1])          
-
-        d_pal_po_per_ne=np.zeros(shape = (Nr, 1))
-        for r in range(Nr):
-                d_pal_po_per_ne[r]=abs(f_1[Nv-1,r]/f_1[1*Nv+Nv-2,r])#abs(f_1[r*(Nv)*(Nv)+Nv-1]-f_1[r*(Nv)*(Nv)+1*Nv+Nv-2])
-
-        d_pal_po_per_po=np.zeros(shape = (Nr, 1))
-        for r in range(Nr):
-                d_pal_po_per_po[r]=abs(f_1[(Nv-1)*Nv+Nv-1,r]/f_1[(Nv-2)*Nv+Nv-2,r])#abs(f_1[r*(Nv)*(Nv)+(Nv-1)*Nv+Nv-1]-f_1[r*(Nv)*(Nv)+(Nv-2)*Nv+Nv-2])
-
 
 
 
