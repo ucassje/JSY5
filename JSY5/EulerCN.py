@@ -623,8 +623,8 @@ def Matrix_QQ(R):
     return AA
 
 
-#f_1 = np.load('data_800.npy')
-for p in range(9):
+f_1 = np.load('data_next.npy')
+for p in range(1):
         print(p)
 
         Density_next=np.zeros(shape = (Nr))
