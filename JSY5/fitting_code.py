@@ -165,7 +165,7 @@ for r in range(Nr):
                 fitting[j*Nv+i]=(v['nc'])*(r_s**3)*Density[r]*(v_th_function(v['Tc_pal'])*v_th_function(v['Tc_per'])**2)**(-1)*(2/(np.pi*(2*v['kappac']-3)))**1.5*(gamma(v['kappac']+1)/gamma(v['kappac']-0.5))*(1.+(2/(2*v['kappac']-3))*(((per_v[j])/v_th_function(v['Tc_per']))**2)+(2/(2*v['kappac']-3))*(((pal_v[i]-v['Uc'])/v_th_function(v['Tc_pal']))**2))**(-v['kappac']-1.)+(v['ns'])*(r_s**3)*Density[r]*(v_th_function(v['Ts_pal'])*v_th_function(v['Ts_per'])**2)**(-1)*(2/(np.pi*(2*v['kappas']-3)))**1.5*(gamma(v['kappas']+1)/gamma(v['kappas']-0.5))*(1.+(2/(2*v['kappas']-3))*(((per_v[j])/v_th_function(v['Ts_per']))**2)+(2/(2*v['kappas']-3))*(((pal_v[i]-v['Us'])/v_th_function(v['Ts_pal']))**2))**(-v['kappas']-1.)
         fit_maxi=np.max(fitting)
         
-        DataChosen = np.where((f_11/maxi)> 10**(-4));
+        DataChosen = np.where((f_11/maxi)> 10**(-5));
         return np.log10(fitting[DataChosen])-np.log10(f_11[DataChosen]) #np.log10(fitting/fit_maxi)-np.log10(f_11/maxi) 
 
     mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 1900}, nan_policy='omit')
@@ -305,16 +305,6 @@ for r in range(Nr):
     plt.clf()
     plt.close()
 
-    nc[r] = zx['nc'].value
-    ns[r] = zx['ns'].value
-    Tc_pal[r] = zx['Tc_pal'].value
-    Tc_per[r] = zx['Tc_per'].value
-    Ts_pal[r] = zx['Ts_pal'].value
-    Ts_per[r] = zx['Ts_per'].value
-    Uc[r] = zx['Uc'].value
-    Us[r] = zx['Us'].value
-    kappac[r] = zx['kappac'].value
-    kappas[r] = zx['kappas'].value
 
 np.save('data_nc.npy', nc)         
 np.save('data_ns.npy', ns)
