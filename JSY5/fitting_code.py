@@ -145,10 +145,10 @@ for r in range(Nr):
     print(r)
     if r==0:
             p = lmfit.Parameters()
-            p.add_many(('nc', 1,True,0.8,1),('ns', 0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 10*10**5,True,1*10**5,20*10**5), ('Ts_per', 10*10**5,True,1*10**5,20*10**5), ('Uc',0,True,-1.5,0),('Us',5,True,5,17),('kappac',20,True,20,50),('kappas',20,True,20,50))
+            p.add_many(('nc', 1,True,0.8,1),('ns', 0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 10*10**5,True,1*10**5,20*10**5), ('Ts_per', 10*10**5,True,1*10**5,20*10**5), ('Uc',0,True,-1.5,0),('Us',0,True,0,17),('kappac',4,True,2,50),('kappas',4,True,2,50))
     else:                          #,('Us',0,True,0,1.5) , ('Uc',0,True,-0.4,0) 
             p = lmfit.Parameters()
-            p.add_many(('nc', nc[r-1],True,0.8,1),('ns', nc[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,20*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,20*10**5), ('Uc',Uc[r-1],True,-1.5,0),('Us',Us[r-1],True,5,17),('kappac',kappac[r-1],True,20,50),('kappas',kappas[r-1],True,20,50))
+            p.add_many(('nc', nc[r-1],True,0.8,1),('ns', nc[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,20*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,20*10**5), ('Uc',Uc[r-1],True,-1.5,0),('Us',Us[r-1],True,0,17),('kappac',kappac[r-1],True,2,50),('kappas',kappas[r-1],True,2,50))
                                    #,('Us',Us,True,0,1.5) , ('Uc',Uc,True,-0.4,0.4) 
     f_11=np.zeros(shape = (Nv**2, 1))
     for j in range(Nv):
@@ -305,7 +305,27 @@ for r in range(Nr):
     plt.clf()
     plt.close()
 
+    nc[r] = zx['nc'].value
+    ns[r] = zx['ns'].value
+    Tc_pal[r] = zx['Tc_pal'].value
+    Tc_per[r] = zx['Tc_per'].value
+    Ts_pal[r] = zx['Ts_pal'].value
+    Ts_per[r] = zx['Ts_per'].value
+    Uc[r] = zx['Uc'].value
+    Us[r] = zx['Us'].value
+    kappac[r] = zx['kappac'].value
+    kappas[r] = zx['kappas'].value
 
+np.save('data_nc.npy', nc)         
+np.save('data_ns.npy', ns)
+np.save('data_Tc_pal.npy', Tc_pal)
+np.save('data_Tc_per.npy', Tc_per)
+np.save('data_Ts_pal.npy', Ts_pal)
+np.save('data_Ts_per.npy', Ts_per)
+np.save('data_Uc.npy', Uc)
+np.save('data_Us.npy', Us)
+np.save('data_kappac.npy', kappac)
+np.save('data_kappas.npy', kappas)
 
 plt.figure(figsize=(20,15))
 plt.grid()
