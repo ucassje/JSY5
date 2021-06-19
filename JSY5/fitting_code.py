@@ -150,10 +150,10 @@ for r in range(Nr):
     print(r)
     if r==0:
             p = lmfit.Parameters()
-            p.add_many(('nc', 1,True,0.8,1),('ns', 0,True,0,0.2),('nh', 0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 10*10**5,True,1*10**5,20*10**5), ('Ts_per', 10*10**5,True,1*10**5,20*10**5),('Th_pal', 10*10**5,True,1*10**5,20*10**5), ('Th_per', 10*10**5,True,1*10**5,20*10**5), ('Uc',0,True,-1.5,0),('Us',5,True,5,17),('Uh',0,True,-5,5),('kappah',4,True,2,50))
+            p.add_many(('nc', 1,True,0.8,1),('ns', 0,True,0,0.2),('nh', 0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 10*10**5,True,1*10**5,20*10**5), ('Ts_per', 10*10**5,True,1*10**5,20*10**5),('Th_pal', 10*10**5,True,1*10**5,10*10**5), ('Th_per', 10*10**5,True,1*10**5,10*10**5), ('Uc',0,True,-1.5,0),('Us',5,True,5,17),('Uh',0,True,-1,1),('kappah',4,True,2,50))
     else:                          #,('Us',0,True,0,1.5) , ('Uc',0,True,-0.4,0) 
             p = lmfit.Parameters()
-            p.add_many(('nc', nc[r-1],True,0.8,1),('ns', ns[r-1],True,0,0.2),('nh', nh[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,20*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,20*10**5),('Th_pal', Th_pal[r-1],True,1*10**5,20*10**5), ('Th_per', Th_per[r-1],True,1*10**5,20*10**5), ('Uc',Uc[r-1],True,-1.5,0),('Us',Us[r-1],True,5,17),('Uh',Uh[r-1],True,-5,5),('kappah',kappah[r-1],True,2,50))
+            p.add_many(('nc', nc[r-1],True,0.8,1),('ns', ns[r-1],True,0,0.2),('nh', nh[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,20*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,20*10**5),('Th_pal', Th_pal[r-1],True,1*10**5,10*10**5), ('Th_per', Th_per[r-1],True,1*10**5,10*10**5), ('Uc',Uc[r-1],True,-1.5,0),('Us',Us[r-1],True,5,17),('Uh',Uh[r-1],True,-1,1),('kappah',kappah[r-1],True,2,50))
                                    #,('Us',Us,True,0,1.5) , ('Uc',Uc,True,-0.4,0.4) 
     f_11=np.zeros(shape = (Nv**2, 1))
     for j in range(Nv):
@@ -170,7 +170,7 @@ for r in range(Nr):
                 fitting[j*Nv+i]=(v['nh'])*(r_s**3)*Density[r]*(v_th_function(v['Th_pal'])*v_th_function(v['Th_per'])**2)**(-1)*(2/(np.pi*(2*v['kappah']-3)))**1.5*(gamma(v['kappah']+1)/gamma(v['kappah']-0.5))*(1.+(2/(2*v['kappah']-3))*(((per_v[j])/v_th_function(v['Th_per']))**2)+(2/(2*v['kappah']-3))*(((pal_v[i]-v['Uh'])/v_th_function(v['Th_pal']))**2))**(-v['kappah']-1.)+(v['nc'])*(r_s**3)*Density[r]*(v_th_function(v['Tc_pal'])*v_th_function(v['Tc_per'])**2)**(-1)*(2/(np.pi*(2*20-3)))**1.5*(gamma(20+1)/gamma(20-0.5))*(1.+(2/(2*20-3))*(((per_v[j])/v_th_function(v['Tc_per']))**2)+(2/(2*20-3))*(((pal_v[i]-v['Uc'])/v_th_function(v['Tc_pal']))**2))**(-20-1.)+(v['ns'])*(r_s**3)*Density[r]*(v_th_function(v['Ts_pal'])*v_th_function(v['Ts_per'])**2)**(-1)*(2/(np.pi*(2*20-3)))**1.5*(gamma(20+1)/gamma(20-0.5))*(1.+(2/(2*20-3))*(((per_v[j])/v_th_function(v['Ts_per']))**2)+(2/(2*20-3))*(((pal_v[i]-v['Us'])/v_th_function(v['Ts_pal']))**2))**(-20-1.)
         fit_maxi=np.max(fitting)
         
-        DataChosen = np.where((f_11/maxi)> 10**(-4));
+        DataChosen = np.where((f_11/maxi)> 10**(-5));
         return np.log10(fitting[DataChosen])-np.log10(f_11[DataChosen]) #np.log10(fitting/fit_maxi)-np.log10(f_11/maxi) 
 
     mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 1900}, nan_policy='omit')
@@ -326,17 +326,17 @@ for r in range(Nr):
 
 np.save('data_nc.npy', nc)         
 np.save('data_ns.npy', ns)
-np.save('data_nh.npy', ns)
+np.save('data_nh.npy', nh)
 np.save('data_Tc_pal.npy', Tc_pal)
 np.save('data_Tc_per.npy', Tc_per)
 np.save('data_Ts_pal.npy', Ts_pal)
 np.save('data_Ts_per.npy', Ts_per)
-np.save('data_Th_pal.npy', Ts_pal)
-np.save('data_Th_per.npy', Ts_per)
+np.save('data_Th_pal.npy', Th_pal)
+np.save('data_Th_per.npy', Th_per)
 np.save('data_Uc.npy', Uc)
 np.save('data_Us.npy', Us)
 np.save('data_Uh.npy', Uh)
-np.save('data_kappah.npy', kappac)
+np.save('data_kappah.npy', kappah)
 #np.save('data_kappas.npy', kappas)
 
 plt.figure(figsize=(20,15))
