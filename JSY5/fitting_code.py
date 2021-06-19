@@ -189,7 +189,7 @@ for r in range(Nr):
     Uc[r] = zx['Uc'].value
     Us[r] = zx['Us'].value
     Uh[r] = zx['Uh'].value
-    kappah[r] = zx['kappac'].value
+    kappah[r] = zx['kappah'].value
     #kappas[r] = zx['kappas'].value
 
     v_Ae[r]=(B(z[r])*10**(-9))/(4.*np.pi*10**(-7)*9.1094e-31*Density[r])**0.5
