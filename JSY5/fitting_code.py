@@ -170,7 +170,7 @@ for r in range(Nr):
                 fitting[j*Nv+i]=(v['nh'])*(r_s**3)*Density[r]*(v_th_function(v['Th_pal'])*v_th_function(v['Th_per'])**2)**(-1)*(2/(np.pi*(2*v['kappah']-3)))**1.5*(gamma(v['kappah']+1)/gamma(v['kappah']-0.5))*(1.+(2/(2*v['kappah']-3))*(((per_v[j])/v_th_function(v['Th_per']))**2)+(2/(2*v['kappah']-3))*(((pal_v[i]-v['Uh'])/v_th_function(v['Th_pal']))**2))**(-v['kappah']-1.)+(v['nc'])*(r_s**3)*Density[r]*(v_th_function(v['Tc_pal'])*v_th_function(v['Tc_per'])**2)**(-1)*(2/(np.pi*(2*20-3)))**1.5*(gamma(20+1)/gamma(20-0.5))*(1.+(2/(2*20-3))*(((per_v[j])/v_th_function(v['Tc_per']))**2)+(2/(2*20-3))*(((pal_v[i]-v['Uc'])/v_th_function(v['Tc_pal']))**2))**(-20-1.)+(v['ns'])*(r_s**3)*Density[r]*(v_th_function(v['Ts_pal'])*v_th_function(v['Ts_per'])**2)**(-1)*(2/(np.pi*(2*20-3)))**1.5*(gamma(20+1)/gamma(20-0.5))*(1.+(2/(2*20-3))*(((per_v[j])/v_th_function(v['Ts_per']))**2)+(2/(2*20-3))*(((pal_v[i]-v['Us'])/v_th_function(v['Ts_pal']))**2))**(-20-1.)
         fit_maxi=np.max(fitting)
         
-        DataChosen = np.where((f_11/maxi)> 10**(-5));
+        DataChosen = np.where((f_11/maxi)> 10**(-4));
         return np.log10(fitting[DataChosen])-np.log10(f_11[DataChosen]) #np.log10(fitting/fit_maxi)-np.log10(f_11/maxi) 
 
     mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 1900}, nan_policy='omit')
