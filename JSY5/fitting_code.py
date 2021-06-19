@@ -141,6 +141,11 @@ for r in range(Nr):
    Density[r]=tempDensity/(r_s**3)
 
 
+deln=0.05
+deltemp=0.25*10**6
+delU=1.5
+
+
 for r in range(Nr):
     print(r)
     if r==0:
@@ -148,7 +153,7 @@ for r in range(Nr):
             p.add_many(('nc', 1,True,0.8,1),('ns', 0,True,0,0.2), ('Tc_pal', 10*10**5,True,1*10**5,10*10**5), ('Tc_per', 10*10**5,True,1*10**5,10*10**5), ('Ts_pal', 20*10**5,True,1*10**5,30*10**5), ('Ts_per', 20*10**5,True,1*10**5,30*10**5), ('Uc',0,True,-1.5,0),('Us',0,True,0,17),('kappac',4,True,2,50),('kappas',4,True,2,50))
     else:                          #,('Us',0,True,0,1.5) , ('Uc',0,True,-0.4,0) 
             p = lmfit.Parameters()
-            p.add_many(('nc', nc[r-1],True,0.8,1),('ns', ns[r-1],True,0,0.2), ('Tc_pal', Tc_pal[r-1],True,1*10**5,10*10**5), ('Tc_per', Tc_per[r-1],True,1*10**5,10*10**5), ('Ts_pal', Ts_pal[r-1],True,1*10**5,30*10**5), ('Ts_per', Ts_per[r-1],True,1*10**5,30*10**5), ('Uc',Uc[r-1],True,-1.5,0),('Us',Us[r-1],True,0,17),('kappac',kappac[r-1],True,2,50),('kappas',kappas[r-1],True,2,50))
+            p.add_many(('nc', nc[r-1],True,nc[r-1]-deln,nc[r-1]+deln),('ns', ns[r-1],True,ns[r-1]-deln,ns[r-1]+deln), ('Tc_pal', Tc_pal[r-1],True,Tc_pal[r-1]-deltemp,Tc_pal[r-1]+deltemp), ('Tc_per', Tc_per[r-1],True,Tc_per[r-1]-deltemp,Tc_per[r-1]+deltemp), ('Ts_pal', Ts_pal[r-1],True,Ts_pal[r-1]-deltemp,Ts_pal[r-1]+deltemp), ('Ts_per', Ts_per[r-1],True,Ts_per[r-1]-deltemp,Ts_per[r-1]+deltemp), ('Uc',Uc[r-1],True,Uc[r-1]-delU,Uc[r-1]+delU),('Us',Us[r-1],True,Us[r-1]-delU,Us[r-1]+delU),('kappac',kappac[r-1],True,2,50),('kappas',kappas[r-1],True,2,50))
                                    #,('Us',Us,True,0,1.5) , ('Uc',Uc,True,-0.4,0.4) 
     f_11=np.zeros(shape = (Nv**2, 1))
     for j in range(Nv):
@@ -168,7 +173,7 @@ for r in range(Nr):
         DataChosen = np.where((f_11/maxi)> 10**(-4));
         return np.log10(fitting[DataChosen])-np.log10(f_11[DataChosen]) #np.log10(fitting/fit_maxi)-np.log10(f_11/maxi) 
 
-    mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 2000}, nan_policy='omit')
+    mi = lmfit.minimize(residual, p, method='nelder', options={'maxiter' : 1900}, nan_policy='omit')
     #lmfit.printfuncs.report_fit(mi.params, min_correl=0.5)
     print(fit_report(mi))
     zx =  mi.params
