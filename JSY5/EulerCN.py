@@ -115,7 +115,7 @@ def kappa_v_th_function(T):
         return ((2.*kappa-3)*Bol_k*T/(kappa*Me))**0.5/v_Ae_0
 
 def Kappa_Initial_Core(a,b,r):
-   kappac=4 #2
+   kappac=8 #2
    return (r_s**3)*(n(r)*10**6)*(v_th_function(temperature(r))*v_th_function(temperature(r))**2)**(-1)*(2/(np.pi*(2*kappac-3)))**1.5*(gamma(kappac+1)/gamma(kappac-0.5))*(1.+(2/(2*kappac-3))*((b/v_th_function(temperature(r)))**2)+(2/(2*kappac-3))*((a/v_th_function(temperature(r)))**2))**(-kappac-1.) #(U_f/U_solar(r))*(r_s**3)*(n(r)*10**6)*(2*np.pi*kappa_v_th_function(temperature(r))**3*kappa**1.5)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*gamma(1.5)))*(1.+((b/kappa_v_th_function(temperature(r)))**2)/kappa+((a/kappa_v_th_function(temperature(r)))**2)/kappa)**(-kappa-1.)#+10**(-6)*(r_s**3)*(n(r)*10**6)*(np.pi**1.5*kappa_v_th_function(temperature(r))**3)**(-1)*(gamma(kappa+1)/(gamma(kappa-0.5)*kappa**1.5))*(1.+((b/(kappa_v_th_function(temperature(r))*100000))**2)/kappa+((a/(kappa_v_th_function(temperature(r))*100000))**2)/kappa)**(-kappa-1.) #(((7.5*10**9/r_s)/c)**2+0.05*np.exp(-(c-23)**2))*
 #(r_s**3)*(n(r)*10**6)/(v_th_function(temperature(r))**3*np.pi**(3/2))*np.exp(-a**2/v_th_function(temperature(r))**2-b**2/v_th_function(temperature(r))**2)
          
@@ -431,7 +431,7 @@ def electric(x):
         for r in range(Nr):
                 if abs(x-z[r])<0.5*delz:
                         l=r
-        return U_solar(x)*dU_solar(x)/(cos(x)**2)+(1/v_Ae_0**2)*(Bol_k)/(Me*Density_next[l])*(Density_next[l]*Temperature_pal[l]-Density_next[l-1]*Temperature_pal[l-1])/delz+2*(1/v_Ae_0**2)*(Bol_k)/(Me)*dcos(x)/cos(x)*Temperature_pal[l]+(1/v_Ae_0**2)*(Bol_k)/(2*Me)*dlnB(x)*Temperature_per[l]+(1/v_Ae_0**2)*(2*Bol_k)/(Me*x)*Temperature_pal[r]#+(1/Density_next[l])*(Density_next[l]*Bulk_next[l]-Density_pre[l]*Bulk_pre[l])/(10*delt)+(Bulk_next[l]/cos(x))*dU_solar(x)+Bulk_next[l]*(dU_solar(x)/cos(x)+U_solar(x)*dcos_1(x))+(U_solar(x)/cos(x))*Bulk_next[l]/x+(U_solar(x)/(cos(x)*Density_next[l]))*(Density_next[l]*Bulk_next[l]-Density_next[l-1]*Bulk_next[l-1])/delz
+        return U_solar(x)*dU_solar(x)/(cos(x)**2)+(1/v_Ae_0**2)*(Bol_k)/(Me*Density_next[l])*(Density_next[l]*Temperature_pal[l]-Density_next[l-1]*Temperature_pal[l-1])/delz+2*(1/v_Ae_0**2)*(Bol_k)/(Me)*dcos(x)/cos(x)*Temperature_pal[l]+(1/v_Ae_0**2)*(Bol_k)/(Me)*dlnB(x)*Temperature_per[l]+(1/v_Ae_0**2)*(2*Bol_k)/(Me*x)*Temperature_pal[r]#+(1/Density_next[l])*(Density_next[l]*Bulk_next[l]-Density_pre[l]*Bulk_pre[l])/(10*delt)+(Bulk_next[l]/cos(x))*dU_solar(x)+Bulk_next[l]*(dU_solar(x)/cos(x)+U_solar(x)*dcos_1(x))+(U_solar(x)/cos(x))*Bulk_next[l]/x+(U_solar(x)/(cos(x)*Density_next[l]))*(Density_next[l]*Bulk_next[l]-Density_next[l-1]*Bulk_next[l-1])/delz
 
 
 
@@ -623,8 +623,10 @@ def Matrix_QQ(R):
     return AA
 
 
-f_1 = np.load('data_next.npy')
-for p in range(1):
+#f_1 = np.load('data_next.npy')
+updatetime=9
+Normvalue=np.zeros(shape = (timestep*updatetime))
+for p in range(updatetime):
         print(p)
 
         Density_next=np.zeros(shape = (Nr))
@@ -668,7 +670,7 @@ for p in range(1):
                 for r in range(Nr):
                         if abs(x-z[r])<0.5*delz:
                                 l=r
-                return U_solar(x)*dU_solar(x)/(cos(x)**2)+(1/v_Ae_0**2)*(Bol_k)/(Me*Density_next[l])*(Density_next[l]*Temperature_pal[l]-Density_next[l-1]*Temperature_pal[l-1])/delz+2*(1/v_Ae_0**2)*(Bol_k)/(Me)*dcos(x)/cos(x)*Temperature_pal[l]+(1/v_Ae_0**2)*(Bol_k)/(2*Me)*dlnB(x)*Temperature_per[l]+(1/v_Ae_0**2)*(2*Bol_k)/(Me*x)*Temperature_pal[r]#+(1/Density_next[l])*(Density_next[l]*Bulk_next[l]-Density_pre[l]*Bulk_pre[l])/(10*delt)+(Bulk_next[l]/cos(x))*dU_solar(x)+Bulk_next[l]*(dU_solar(x)/cos(x)+U_solar(x)*dcos_1(x))+(U_solar(x)/cos(x))*Bulk_next[l]/x+(U_solar(x)/(cos(x)*Density_next[l]))*(Density_next[l]*Bulk_next[l]-Density_next[l-1]*Bulk_next[l-1])/delz
+                return U_solar(x)*dU_solar(x)/(cos(x)**2)+(1/v_Ae_0**2)*(Bol_k)/(Me*Density_next[l])*(Density_next[l]*Temperature_pal[l]-Density_next[l-1]*Temperature_pal[l-1])/delz+2*(1/v_Ae_0**2)*(Bol_k)/(Me)*dcos(x)/cos(x)*Temperature_pal[l]+(1/v_Ae_0**2)*(Bol_k)/(Me)*dlnB(x)*Temperature_per[l]+(1/v_Ae_0**2)*(2*Bol_k)/(Me*x)*Temperature_pal[r]#+(1/Density_next[l])*(Density_next[l]*Bulk_next[l]-Density_pre[l]*Bulk_pre[l])/(10*delt)+(Bulk_next[l]/cos(x))*dU_solar(x)+Bulk_next[l]*(dU_solar(x)/cos(x)+U_solar(x)*dcos_1(x))+(U_solar(x)/cos(x))*Bulk_next[l]/x+(U_solar(x)/(cos(x)*Density_next[l]))*(Density_next[l]*Bulk_next[l]-Density_next[l-1]*Bulk_next[l-1])/delz
 
 
 
@@ -892,8 +894,7 @@ for p in range(1):
 
 
         timestep=100 #700
-        Normvalue=np.zeros(shape = (timestep))
-        Normvalue_bulk=np.zeros(shape = (timestep))
+        
         for k in range(timestep):
                 print(k)
                 f_pre=np.zeros(shape = (Nv**2, Nr))
@@ -1084,12 +1085,12 @@ for p in range(1):
                 #if k>100 and Normvalue[k,R]>=Normvalue[k-1,R]:
                 #        Normvalue[:,R]=0
                 #        f_1[:,R]=f_pre[:,R]
-                Normvalue[k]=norm**0.5
+                Normvalue[k+timestep*p]=norm**0.5
                 print(norm**0.5)
 
 
 np.save('data_next.npy', f_1)          
-
+np.save('data_norm.npy', Normvalue)        
             
 
 X2,Y2 = np.meshgrid(pal_v,per_v)
@@ -1101,40 +1102,6 @@ solu4=np.zeros(shape = (Nv))
 cont_lev = np.linspace(-10,0,25)
 
 
-#o=np.linspace(1, timestep, timestep)
-
-#for r in range(Nr):
-#        plt.figure(figsize=(20,15))
-#        plt.grid()
-#        ax = plt.gca()
-#        plt.rc('font', size=35)
-#        plt.tick_params(labelsize=40)
-#        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-#        ax.set_xlim([o[0],o[timestep-1]])
-#        ax.set_ylim([10**(-5),0.5*10**(-2)])
-#        ax.set_xlabel(r'$t$', fontsize=28)
-#        ax.set_ylabel(r'$norm$', fontsize=28)
-#        ax.plot(o,Normvalue[:,r],linewidth=3.0, color='k');
-#        plt.savefig(f'{path_current}norm/{r}.png')
-#        plt.clf()
-#        plt.close()
-
-#o=np.linspace(1, timestep, timestep)
-
-#plt.figure(figsize=(20,15))
-#plt.grid()
-#ax = plt.gca()
-#plt.rc('font', size=35)
-#plt.tick_params(labelsize=40)
-#plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-#ax.set_xlim([o[0],o[timestep-1]])
-#ax.set_ylim([10**(-5),10**(-2)])
-#ax.set_xlabel(r'$t$', fontsize=28)
-#ax.set_ylabel(r'$norm$', fontsize=28)
-#ax.plot(o,Normvalue,linewidth=3.0, color='k');
-#plt.savefig(f'{path_current}figure/norm.png')
-#plt.clf()
-#plt.close()
 
 
 for r in range(Nr):
@@ -1405,5 +1372,23 @@ ax.plot(z,max(Density)*(z[0]/z)**2*(WS[0]/(WS)),linewidth=3.0, color='b',linesty
 ax.plot(z,max(Density)*(z[0]/z)**2*(WS[0]+Bulk[0])/(WS+Bulk),linewidth=3.0, color='r',linestyle='dotted',label=r'$Anaytical \ 1/(U+U_{bulk})r^{2} \ Density$');
 plt.legend(loc='upper right')
 plt.savefig(f'{path_current}figure/density.png')
+plt.clf()
+plt.close()
+
+
+o=np.linspace(1, timestep*updatetime, timestep*updatetime)
+
+plt.figure(figsize=(20,15))
+plt.grid()
+ax = plt.gca()
+plt.rc('font', size=35)
+plt.tick_params(labelsize=40)
+plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+ax.set_xlim([o[0],o[timestep*updatetime-1]])
+ax.set_ylim([10**(-5),10**(-2)])
+ax.set_xlabel(r'$t$', fontsize=28)
+ax.set_ylabel(r'$norm$', fontsize=28)
+ax.plot(o,Normvalue,linewidth=3.0, color='k');
+plt.savefig(f'{path_current}figure/norm.png')
 plt.clf()
 plt.close()
